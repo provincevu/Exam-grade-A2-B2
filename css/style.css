@@ -1,0 +1,165 @@
+.test{
+    height: 60px;
+}
+
+.color-white{
+    color: white;
+}
+
+.font-timeNewRoman{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.font-120{
+    font-size: 140%;
+}
+
+.bg-header{
+    background-color: #3b276e;
+}
+
+.logo-website{
+    margin-left: 5px;
+}
+
+.font-60{
+    font-size: 60%;
+}
+
+.search-form{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border: 1px solid purple;
+    height: 27px;
+    width: 177px;
+    padding-left: 30px;
+}
+
+.search-button{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border: 1px solid purple;
+    margin-left: -29px;
+    height: 28px;
+    width: 55px;
+    font-size: 65%;
+    color: white;
+    background-color: rgb(216, 166, 72);
+}
+
+.profile {
+    width: 37px; /* Điều chỉnh kích thước theo ý muốn */
+    cursor: pointer;
+}
+  
+.avatar {
+    display: block;
+    border: 2px solid white;
+    border-radius: 50%; /* Tạo hình tròn */
+    object-fit: cover; /* Đảm bảo ảnh sẽ fit với kích thước hình tròn */
+    margin-top: 14px;
+}
+
+.avatar2 {
+    display: block;
+    border: 2px solid white;
+    border-radius: 50%; /* Tạo hình tròn */
+    object-fit: cover; /* Đảm bảo ảnh sẽ fit với kích thước hình tròn */
+}
+
+.info {
+    position: absolute;
+    left: 32%;
+    top: 15%;
+    width: 40%;
+    height: 300px;
+    background: rgb(54, 78, 145);
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+.functions{
+    border-right: 1px solid rgb(238, 235, 235);
+    height: 100vh;
+}
+
+.user-info{
+    border-bottom: 1px solid rgb(238, 235, 235);
+}
+
+.name-user{
+    font-size: small;
+}
+
+.name-user{
+    font-size: small;
+}
+
+.title-function{
+    font-size: 60%;
+    color: rgb(66, 66, 66);
+}
+
+.function-item{
+    font-size: 80%;
+    height: 22px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.icon-search{
+    position: absolute;
+    top:23%;
+    left: 22px;
+    color: #6c757d;
+}
+
+.logo-function{
+    padding-top: 3px;
+}
+
+.name-function, .logo-function{
+    cursor: pointer;
+}
+
+.name-function{
+    border-radius: 4px;
+}
+
+#projects{
+    background-color: #4c9beb;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
