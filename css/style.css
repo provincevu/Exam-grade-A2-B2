@@ -1,5 +1,9 @@
 .test{
-    height: 60px;
+    height: 100px;
+}
+
+.name-website{
+    padding-top: 13px;
 }
 
 .color-white{
@@ -27,28 +31,29 @@
 }
 
 .search-form{
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
     border: 1px solid purple;
-    height: 27px;
-    width: 177px;
-    padding-left: 30px;
+    height: 47px;
+    width: 300px;
+    padding-left: 40px;
 }
 
 .search-button{
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
     border: 1px solid purple;
-    margin-left: -29px;
-    height: 28px;
-    width: 55px;
-    font-size: 65%;
+    margin-left: -69px;
+    height: 47px;
+    width: 110px;
+    font-size: 130%;
     color: white;
     background-color: rgb(216, 166, 72);
+    cursor: pointer;
 }
 
 .profile {
@@ -62,6 +67,7 @@
     border-radius: 50%; /* Tạo hình tròn */
     object-fit: cover; /* Đảm bảo ảnh sẽ fit với kích thước hình tròn */
     margin-top: 14px;
+    width: 20px;
 }
 
 .avatar2 {
@@ -85,7 +91,7 @@
 
 .functions{
     border-right: 1px solid rgb(238, 235, 235);
-    height: 100vh;
+    height: 86vh;
 }
 
 .user-info{
@@ -93,22 +99,18 @@
 }
 
 .name-user{
-    font-size: small;
-}
-
-.name-user{
-    font-size: small;
+    font-size: 160%;
 }
 
 .title-function{
-    font-size: 60%;
+    font-size: 110%;
     color: rgb(66, 66, 66);
 }
 
 .function-item{
-    font-size: 80%;
+    font-size: 140%;
     height: 22px;
-    margin-top: 10px;
+    margin-top: 35px;
     padding-left: 10px;
 }
 
@@ -116,6 +118,7 @@
     position: absolute;
     top:23%;
     left: 22px;
+    font-size: 160%;
     color: #6c757d;
 }
 
