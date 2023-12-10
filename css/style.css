@@ -77,16 +77,19 @@
     object-fit: cover; /* Đảm bảo ảnh sẽ fit với kích thước hình tròn */
 }
 
+
 .info {
+    background-color: grey;
     position: absolute;
-    left: 32%;
-    top: 15%;
-    width: 40%;
-    height: 300px;
+    left: -196%;
+    top: 92%;
+    width: 350px;
+    height: 61vh;
     background: rgb(54, 78, 145);
     padding: 10px;
     border-radius: 5px;
     display: none;
+    z-index: 10000;
 }
 
 .functions{
@@ -103,7 +106,7 @@
 }
 
 .title-function{
-    font-size: 110%;
+    font-size: 130%;
     color: rgb(66, 66, 66);
 }
 
@@ -138,27 +141,41 @@
     background-color: #4c9beb;
 }
 
+.content{
+    font-size: 130%;
+    height: 550px;
+    overflow: auto;
+    z-index: 6;
+}
 
+.pj{
+    font-size: 140%;
+}
 
+.mt{
+    font-size: 190%;
+}
 
+.border-bottom{
+    border-bottom: 1px solid grey;
+    margin-top: 40%;
+}
 
+#edit-profile:hover, #logout:hover{
+    color: rgb(24, 24, 255);
+}
 
+#edit-profile, #logout {
+    color: white;
+}
 
+.warning{
+    font-size: 120%;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.here{
+    font-size: 150%;
+}
 
 
 

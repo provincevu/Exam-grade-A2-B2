@@ -25,11 +25,20 @@
             })
         })
         document.addEventListener('click', function(e){
-            alert(e.target.id)
+            const info = document.querySelector('#info');
+            if (!info.contains(e.target) && e.target.id !== 'showInfo'){
+                info.style.display = 'none';
+            }
         })
     </script>
 </head>
 <body>
+    <?php
+        session_start();
+        if(!isset($_SESSION['ten_dang_nhap'])){
+            die('<span class="warning">bạn không có quyền truy cập trang này! Nhấp vào <a class="here" href="login.php">đây</a> để quay về trang đăng nhập</span>');
+        }
+    ?>
     <header class="container-fluid header" id="container-fluid">
         <div class="row justify-content-between bg-header">
             <div class="col-7 row test align-content-center justify-content-center">
@@ -49,9 +58,42 @@
                     <div class="col-3 bg-header mt-3 pl-1"><input type="submit" value="Search" class="search-button"></div>
                 </div>
             </form>
-            <div class="col-1 test">
+            <div class="col-1 position-relative test">
                 <div class="profile w-75">
                     <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="avatar w-100" id="showInfo">
+                </div>
+                <!-- hiển thị thông tin của người dùng -->
+                <div class="info color-white" id="info">
+                    <div class="row ml-2 idx-top">
+                        <div class="col-3 row profile">
+                            <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="avatar w-100" id="showInfo">
+                        </div>
+                        <div class="col-8 mt-3 name-user">
+                            tên người dùng
+                        </div>
+                    </div>
+                    <div class="row ml-2 mt-3 name-user">
+                        Email:
+                    </div>
+                    <div class="row ml-2 mt-3 name-user">
+                        Chức vụ:
+                    </div>
+                    <div class="row ml-2 mt-3 name-user">
+                        Địa chỉ:
+                    </div>
+                    <div class="row border-bottom"></div>
+                    <a href='edit_profile.php'>
+                        <div class="font-120 row" id='edit-profile'>
+                            <div class="col-2"><i class="fa-solid fa-gear mt-2 ml-3"></i></div>
+                            <p>Chỉnh sửa thông tin</p>
+                        </div>
+                    </a>
+                    <a href="logout.php">
+                        <div class="font-120 row" id='logout'>
+                            <div class="col-2"><i class="fa-solid fa-right-from-bracket mt-2 ml-3"></i></div>
+                            <p>đăng xuất</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -66,6 +108,9 @@
                     <div class="information">
                         <div class="information">
                             <p class="name-user">
+                                <?php
+                                    echo $_SESSION['ten'];
+                                ?>
                             </p>
                         </div>
                     </div>
@@ -90,56 +135,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9 content position-relative" id='content'>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                
-            </div>
-        </div>
-        <!-- hiển thị thông tin của người dùng -->
-        <div class="info color-white" id="info">
-            <div class="row ml-2 idx-top" id='tt'>
-                <div class="col-3 row profile">
-                    <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="avatar w-100" id="showInfo">
-                </div>
-                <div class="col-8 mt-3 name-user">
-                    tên người dùng
-                </div>
-            </div>
-            <div class="row ml-2 mt-3 name-user" id='tt'>
-                Email:
-            </div>
-            <div class="row ml-2 mt-3 name-user" id='tt'>
-                Chức vụ:
-            </div>
-            <div class="row ml-2 mt-3 name-user" id='tt'>
-                Địa chỉ:
-            </div>
-            <div class="row border-bottom" id='tt'></div>
-            <div class="setting-info font-120 row" id='adwhu'>
-                <div class="col-2"><i class="fa-solid fa-gear mt-2 ml-3"></i></div>
-                <p class="col-9">Chỉnh sửa thông tin</p>
-            </div>
-            <div class="setting-info font-120 row" id='adwhu'>
-                <div class="col-2"><i class="fa-solid fa-right-from-bracket mt-2 ml-3"></i></div>
-                <p class="col-9">Đăng xuất</p>
+            <div class="col-9 content">
+                      
             </div>
         </div>
     </div>
