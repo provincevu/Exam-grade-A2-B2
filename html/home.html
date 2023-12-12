@@ -14,22 +14,19 @@
         body{
             position: relative;
         }
-    </style>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            document.addEventListener('click', function(e){
-                if (e.target.id =='showInfo'){
-                    document.querySelector('#info').style.display = 'block'
-                }
-            })
-        })
-        document.addEventListener('click', function(e){
-            alert(e.target.id)
-        })
-    </script>
+    </style>
+    <script src="../javascript/home_script.js"></script>
 </head>
 <body>
+    <?php
+        session_start();
+        require 'connect.php';
+        mysqli_set_charset($connect, 'UTF8');
+        if(!isset($_SESSION['ten_dang_nhap'])){
+            die('<span class="warning">bạn không có quyền truy cập trang này! Nhấp vào <a class="here" href="login.php">đây</a> để quay về trang đăng nhập</span>');
+        }
+    ?>
     <header class="container-fluid header" id="container-fluid">
         <div class="row justify-content-between bg-header">
             <div class="col-7 row test align-content-center justify-content-center">
@@ -49,9 +46,50 @@
                     <div class="col-3 bg-header mt-3 pl-1"><input type="submit" value="Search" class="search-button"></div>
                 </div>
             </form>
-            <div class="col-1 test">
+            <div class="col-1 position-relative test">
                 <div class="profile w-75">
-                    <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="avatar w-100" id="showInfo">
+                    <img src = <?php echo '../image/upload/' . $_SESSION['anh_dai_dien']?> alt="Avatar" class="avatar w-100" id="showInfo">
+                </div>
+                <!-- hiển thị thông tin của người dùng -->
+                <div class="info color-white" id="info">
+                    <div class="row ml-2 idx-top">
+                        <div class="col-3 row profile">
+                            <img src= <?php echo '../image/upload/' . $_SESSION['anh_dai_dien']?> alt="Avatar" class="w-100" id="showImage">
+                        </div>
+                        <div class="col-8 mt-3 name-user">
+                            <?php echo $_SESSION['ten']; ?>
+                        </div>
+                    </div>
+                    <div class="row ml-2 mt-3 name-user">
+                        Email: <?php echo $_SESSION['email']; ?>
+                    </div>
+                    <div class="row ml-2 mt-3 name-user">
+                        Chức vụ: 
+                        <?php
+                            $chuc_vu_id = $_SESSION['chuc_vu_id'];
+                            $chuc_vu = ($connect->query("SELECT * FROM `chuc_vu` WHERE chuc_vu_id = '$chuc_vu_id'"))->fetch_assoc();
+                            echo $chuc_vu['ten_chuc_vu']; 
+                        ?>
+                    </div>
+                    <div class="row ml-2 mt-3 name-user">
+                        Địa chỉ: <?php echo $_SESSION['dia_chi']; ?>
+                    </div>
+                    <div class="row border-bottom"></div>
+                    <a href='edit_profile.php'>
+                        <div class="font-120 row" id='edit-profile'>
+                            <div class="col-2"><i class="fa-solid fa-gear mt-2 ml-3"></i></div>
+                            <p>Chỉnh sửa thông tin</p>
+                        </div>
+                    </a>
+                    <a href="logout.php">
+                        <div class="font-120 row" id='logout'>
+                            <div class="col-2"><i class="fa-solid fa-right-from-bracket mt-2 ml-3"></i></div>
+                            <p>đăng xuất</p>
+                        </div>
+                    </a>
+                </div>
+                <div class='anh_dai_dien' id='anh_dai_dien'>
+                    <img src= <?php echo '../image/upload/' . $_SESSION['anh_dai_dien']?>>
                 </div>
             </div>
         </div>
@@ -61,11 +99,14 @@
             <div class="col-3 functions">
                 <div class="user-info row">
                     <div class="col-3 avatar-sm oi">
-                        <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="w-100 avatar2 mt-1 mb-1">
+                        <img src= <?php echo '../image/upload/' . $_SESSION['anh_dai_dien']?> alt="Avatar" class="w-100 avatar2 mt-1 mb-1">
                     </div>
                     <div class="information">
                         <div class="information">
                             <p class="name-user">
+                                <?php
+                                    echo $_SESSION['ten'];
+                                ?>
                             </p>
                         </div>
                     </div>
@@ -82,7 +123,7 @@
                     </div>
                     <div class="row function-item">
                         <i class="fa-solid fa-folder col-2 logo-function"></i>
-                        <p class="col-10 pl-2 name-function" id="my-projects">Dự án của tôi</p>
+                        <p class="col-10 pl-2 name-function" id="my_projects">Dự án của tôi</p>
                     </div>
                     <div class="row function-item">
                         <i class="fa-solid fa-message col-2 logo-function"></i>
@@ -90,56 +131,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9 content position-relative" id='content'>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                <p>ădhoawhd</p>
-                
-            </div>
-        </div>
-        <!-- hiển thị thông tin của người dùng -->
-        <div class="info color-white" id="info">
-            <div class="row ml-2 idx-top" id='tt'>
-                <div class="col-3 row profile">
-                    <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="avatar w-100" id="showInfo">
+            <div class="col-9 content">
+                <div id='projects_content row'>
+                    <div class="col-3 bg-dark">
+                        ouahwidw
+                    </div>
+                    <div class="col-4">
+                        ouahwidw
+                    </div>
+                    <div class="col-3">
+                        ouahwidw
+                    </div>
                 </div>
-                <div class="col-8 mt-3 name-user">
-                    tên người dùng
-                </div>
-            </div>
-            <div class="row ml-2 mt-3 name-user" id='tt'>
-                Email:
-            </div>
-            <div class="row ml-2 mt-3 name-user" id='tt'>
-                Chức vụ:
-            </div>
-            <div class="row ml-2 mt-3 name-user" id='tt'>
-                Địa chỉ:
-            </div>
-            <div class="row border-bottom" id='tt'></div>
-            <div class="setting-info font-120 row" id='adwhu'>
-                <div class="col-2"><i class="fa-solid fa-gear mt-2 ml-3"></i></div>
-                <p class="col-9">Chỉnh sửa thông tin</p>
-            </div>
-            <div class="setting-info font-120 row" id='adwhu'>
-                <div class="col-2"><i class="fa-solid fa-right-from-bracket mt-2 ml-3"></i></div>
-                <p class="col-9">Đăng xuất</p>
             </div>
         </div>
     </div>

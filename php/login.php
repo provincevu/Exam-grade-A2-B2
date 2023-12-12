@@ -21,6 +21,14 @@
     </style>
 </head>
 <body>
+    <?php
+        session_start();
+        require 'connect.php';
+        mysqli_set_charset($connect, 'UTF8');
+        if(isset($_SESSION['ten_dang_nhap'])){
+            header('location: home.php');
+        }
+    ?>
     <div class="container">
         <form method="get" class="col-4">
             <h1>ĐĂNG NHẬP</h1>
@@ -38,17 +46,12 @@
     </div>
     <?php
         if(isset($_GET['login'])){
-            require 'connect.php';
-            mysqli_set_charset($connect, 'UTF8');
-
             $ten_dang_nhap = $_GET['ten_dang_nhap'];
             $mat_khau = $_GET['mat_khau'];
-
             $sql = "SELECT * FROM `nhan_vien` WHERE ten_dang_nhap = '$ten_dang_nhap' and mat_khau = '$mat_khau'";
             $result = $connect->query($sql);
             if($result->num_rows > 0){
                 $row = $result->fetch_assoc();
-                session_start();
                 $_SESSION['ten_dang_nhap'] = $ten_dang_nhap;
                 $_SESSION['cccd'] = $row['cccd'];
                 $_SESSION['ten'] = $row['ten'];
@@ -59,6 +62,7 @@
                 $_SESSION['ngay_sinh'] = $row['ngay_sinh'];
                 $_SESSION['anh_dai_dien'] = $row['anh_dai_dien'];
                 $_SESSION['dia_chi'] = $row['dia_chi'];
+                $_SESSION['chuc_vu_id'] = $row['chuc_vu_id'];
                 header('location: ../php/home.php');
             }
             else{

@@ -6,6 +6,10 @@
     <title>Sign up</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
     <style>
         form{
             border: 1px solid rgb(129, 129, 224);
@@ -21,6 +25,7 @@
             color: red
         }
     </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             document.querySelector('#submit').disabled = true
@@ -117,7 +122,7 @@
 </head>
 <body>
     <div class="container">
-        <form method="get" class="col-4" id='form'>
+        <form method="get" class="col-4" id='form' class="form-signup">
             <h1>TẠO TÀI KHOẢN</h1>
             <div class="form-group">
                 Căn cước công dân(*):
@@ -191,7 +196,14 @@
 
             $sql = "INSERT INTO `nhan_vien`(`cccd`, `ten`, `ten_dang_nhap`, `mat_khau`, `sdt`, `email`, `gioi_tinh_id`, `ngay_sinh`, `dia_chi`) 
                     VALUES ('$cccd','$ten','$ten_dang_nhap','$mat_khau','$sdt','$email','$gioi_tinh_id','$ngay_sinh','$dia_chi')";
-            $connect->query($sql);
+
+            if($connect->query($sql)){
+                echo 'đăng ký tài khoản thành công, vui lòng đăng nhập để sử dụng';
+            }
+            else{
+                echo 'đăng ký không thành công! Lỗi:' . $connect->error;
+            }
+            
         }
     ?>
 </body>

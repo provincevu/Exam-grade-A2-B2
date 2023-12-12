@@ -14,27 +14,40 @@
         body{
             position: relative;
         }
+        .projects{
+            margin-top : 5%;
+            display: grid;
+            grid-template-columns: 30% 30% 30%;
+        }
+        .is_comming{
+            height: 700px
+        }
+        .bg-projects{
+            background-color: rgb(241, 236, 236);
+            border-radius: 5px
+        }
+        .project-status{
+            margin: 20px 0px 0px 10px;
+            display: block;
+            color: rgb(143, 143, 143);
+            font-size: 90%;
+            font-weight: bold;
+        }
+        .nums_project{
+            font-weight: 400;
+        }
+        
+        .comming-child{
+            height: 170px
+        }
     </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            document.addEventListener('click', function(e){
-                if (e.target.id =='showInfo'){
-                    document.querySelector('#info').style.display = 'block'
-                }
-            })
-        })
-        document.addEventListener('click', function(e){
-            const info = document.querySelector('#info');
-            if (!info.contains(e.target) && e.target.id !== 'showInfo'){
-                info.style.display = 'none';
-            }
-        })
-    </script>
+    <script src="../javascript/home_script.js"></script>
 </head>
 <body>
     <?php
         session_start();
+        require 'connect.php';
+        mysqli_set_charset($connect, 'UTF8');
         if(!isset($_SESSION['ten_dang_nhap'])){
             die('<span class="warning">bạn không có quyền truy cập trang này! Nhấp vào <a class="here" href="login.php">đây</a> để quay về trang đăng nhập</span>');
         }
@@ -60,26 +73,31 @@
             </form>
             <div class="col-1 position-relative test">
                 <div class="profile w-75">
-                    <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="avatar w-100" id="showInfo">
+                    <img src = <?php echo '../image/upload/' . $_SESSION['anh_dai_dien']?> alt="Avatar" class="avatar w-100" id="showInfo">
                 </div>
                 <!-- hiển thị thông tin của người dùng -->
                 <div class="info color-white" id="info">
                     <div class="row ml-2 idx-top">
                         <div class="col-3 row profile">
-                            <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="avatar w-100" id="showInfo">
+                            <img src= <?php echo '../image/upload/' . $_SESSION['anh_dai_dien']?> alt="Avatar" class="w-100" id="showImage">
                         </div>
                         <div class="col-8 mt-3 name-user">
-                            tên người dùng
+                            <?php echo $_SESSION['ten']; ?>
                         </div>
                     </div>
                     <div class="row ml-2 mt-3 name-user">
-                        Email:
+                        Email: <?php echo $_SESSION['email']; ?>
                     </div>
                     <div class="row ml-2 mt-3 name-user">
-                        Chức vụ:
+                        Chức vụ: 
+                        <?php
+                            $chuc_vu_id = $_SESSION['chuc_vu_id'];
+                            $chuc_vu = ($connect->query("SELECT * FROM `chuc_vu` WHERE chuc_vu_id = '$chuc_vu_id'"))->fetch_assoc();
+                            echo $chuc_vu['ten_chuc_vu']; 
+                        ?>
                     </div>
                     <div class="row ml-2 mt-3 name-user">
-                        Địa chỉ:
+                        Địa chỉ: <?php echo $_SESSION['dia_chi']; ?>
                     </div>
                     <div class="row border-bottom"></div>
                     <a href='edit_profile.php'>
@@ -95,6 +113,9 @@
                         </div>
                     </a>
                 </div>
+                <div class='anh_dai_dien' id='anh_dai_dien'>
+                    <img src= <?php echo '../image/upload/' . $_SESSION['anh_dai_dien']?>>
+                </div>
             </div>
         </div>
     </header>
@@ -103,7 +124,7 @@
             <div class="col-3 functions">
                 <div class="user-info row">
                     <div class="col-3 avatar-sm oi">
-                        <img src="..\image\avatar-defaul.jpg" alt="Avatar" class="w-100 avatar2 mt-1 mb-1">
+                        <img src= <?php echo '../image/upload/' . $_SESSION['anh_dai_dien']?> alt="Avatar" class="w-100 avatar2 mt-1 mb-1">
                     </div>
                     <div class="information">
                         <div class="information">
@@ -127,7 +148,7 @@
                     </div>
                     <div class="row function-item">
                         <i class="fa-solid fa-folder col-2 logo-function"></i>
-                        <p class="col-10 pl-2 name-function" id="my-projects">Dự án của tôi</p>
+                        <p class="col-10 pl-2 name-function" id="my_projects">Dự án của tôi</p>
                     </div>
                     <div class="row function-item">
                         <i class="fa-solid fa-message col-2 logo-function"></i>
@@ -135,8 +156,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9 content">
-                      
+            <div class="col-9 content position-relative">
+                <div class="projects justify-content-around">
+                    <div class='is_comming bg-projects'>
+                        <b class="project-status row">IS COMMING <span class='nums_project'>3</span></b>
+                        <div class='bg-light col-11 ml-3 comming-child'>
+                            <p>quản lý dự án 1</p>
+                        </div>
+                    </div>
+                    <div class='to_do bg-projects'>
+                        <b class="project-status">TO DO <span class='nums_project'>3</span></b>
+                    </div>
+                    <div class='completed bg-projects'>
+                        <b class="project-status">COMPLETED <span class='nums_project'>3</span></b>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
