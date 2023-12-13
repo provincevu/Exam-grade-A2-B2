@@ -19,9 +19,7 @@
             display: grid;
             grid-template-columns: 30% 30% 30%;
         }
-        .is_comming{
-            height: 700px
-        }
+
         .bg-projects{
             background-color: rgb(241, 236, 236);
             border-radius: 5px
@@ -38,6 +36,8 @@
         }
         
         .comming-child{
+            margin-top: 20px;
+            margin-bottom: 20px;
             height: 170px
         }
     </style>
@@ -160,6 +160,15 @@
                 <div class="projects justify-content-around">
                     <div class='is_comming bg-projects'>
                         <b class="project-status row">IS COMMING <span class='nums_project'>3</span></b>
+                        <div class='bg-light col-11 ml-3 comming-child'>
+                            <p>quản lý dự án 1</p>
+                        </div>
+                        <div class='bg-light col-11 ml-3 comming-child'>
+                            <p>quản lý dự án 1</p>
+                        </div>
+                        <div class='bg-light col-11 ml-3 comming-child'>
+                            <p>quản lý dự án 1</p>
+                        </div>
                         <div class='bg-light col-11 ml-3 comming-child'>
                             <p>quản lý dự án 1</p>
                         </div>
