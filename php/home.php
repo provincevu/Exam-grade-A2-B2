@@ -14,17 +14,57 @@
         body{
             position: relative;
         }
-        .projects{
+        .projects-progress{
             margin-top : 5%;
             display: grid;
             grid-template-columns: 30% 30% 30%;
+            display: none;
+        }
+
+        .projects{
+            padding-bottom: 30px
+        }
+
+        .status{
+            padding: 10px 0px 15px 30px;
+        }
+
+        #is_comming, #to_do, #completed{
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+        }
+        
+        .start-day b{
+            font-weight: bold;
+            font-size: 130%;
+        }
+
+        .project-info{
+            width: 95%;
+            margin: 20px 0px 0px 30px;
+        }
+
+        .project-name{
+            background-color: white;
+            height: 100px;
+            border: 1px solid rgb(214, 207, 207);
+            border-radius: 7px;
+            padding: 10px 0px 0px 20px;
+            cursor: pointer;
+        }
+
+        .project-status{
+            display: grid;
+            border-bottom: 1px solid rgb(226, 223, 223);
+            grid-template-columns: 13% 8% 12%;
         }
 
         .bg-projects{
             background-color: rgb(241, 236, 236);
             border-radius: 5px
         }
-        .project-status{
+        .progress-status{
             margin: 20px 0px 0px 10px;
             display: block;
             color: rgb(143, 143, 143);
@@ -40,8 +80,24 @@
             margin-bottom: 20px;
             height: 170px
         }
+
+        .content{
+            font-size: 130%;
+            height: 657px;
+            overflow: auto;
+            z-index: 6;
+            padding: 0%;
+        }
+        #project_to_do, #project_completed{
+            display: none;
+        }
+
+        #is_comming{
+            border-bottom: 5px solid grey;
+        }
     </style>
-    <script src="../javascript/home_script.js"></script>
+    <!-- <script src="../javascript/home_script.js">
+    </script> -->
 </head>
 <body>
     <?php
@@ -157,9 +213,52 @@
                 </div>
             </div>
             <div class="col-9 content position-relative">
-                <div class="projects justify-content-around">
+                <div class="projects bg-projects">
+                    <div class="project-status">
+                        <div class="status">
+                            <b id="is_comming">Is comming</b>
+                        </div>
+                        <div class="status">
+                            <b id="to_do">to do</b>
+                        </div>
+                        <div class="status">
+                            <b id="completed">completed</b>
+                        </div>
+                    </div>
+                    <div class="project-list">
+                        <?php
+                            $moment = date('Y-m-d');
+                            $select_du_an = $connect->query("SELECT *, HOUR(du_an.ngay_khoi_tao) AS hour,MINUTE(du_an.ngay_khoi_tao) AS minute FROM `du_an`");
+                            while($du_an = $select_du_an->fetch_assoc()){
+                                echo "
+                                <div class='project-info' id=";
+                                if ($du_an['ngay_bat_dau'] > $moment){
+                                    echo 'project_is_comming';
+                                }
+                                elseif($du_an['ngay_ket_thuc'] >= $moment){
+                                    echo 'project_to_do';
+                                }
+                                else{
+                                    echo 'project_completed';
+                                }
+                                echo ">
+                                    <div class='start-day mt-3'>
+                                        <b>". $du_an['ngay_bat_dau'] ."</b>
+                                    </div>
+                                    <div class='project-name' id='project_name'>
+                                        <p style='display: none' id='id_du_an'>". $du_an['id_du_an'] ."</p>
+                                        <h4>". $du_an['ten_du_an'] ."</h4>
+                                        <p>submitted at ". $du_an['hour'] .":". $du_an['minute'] ."</p>
+                                    </div>
+                                </div>
+                                ";
+                            }
+                        ?>
+                    </div>
+                </div>
+                <div class="projects-progress justify-content-around" id="project_progress">
                     <div class='is_comming bg-projects'>
-                        <b class="project-status row">IS COMMING <span class='nums_project'>3</span></b>
+                        <b class="progress-status row">IS COMMING <span class='nums_project'>3</span></b>
                         <div class='bg-light col-11 ml-3 comming-child'>
                             <p>quản lý dự án 1</p>
                         </div>
@@ -174,14 +273,137 @@
                         </div>
                     </div>
                     <div class='to_do bg-projects'>
-                        <b class="project-status">TO DO <span class='nums_project'>3</span></b>
+                        <b class="progress-status">TO DO <span class='nums_project'>3</span></b>
                     </div>
                     <div class='completed bg-projects'>
-                        <b class="project-status">COMPLETED <span class='nums_project'>3</span></b>
+                        <b class="progress-status">COMPLETED <span class='nums_project'>3</span></b>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+    <script>
+        //hiện info
+    document.addEventListener('click', function(e){
+        const info = document.querySelector('#info');
+        const showInfo = document.querySelector('#showInfo');
+
+        if (e.target !== showInfo && !info.contains(e.target)) {
+            info.style.display = 'none';
+        } 
+        if (e.target === showInfo) {
+            info.style.display = 'block';
+        }
+    });
+    //hiện ảnh
+    document.addEventListener('click', function(e){
+        const anh_dai_dien = document.querySelector('#anh_dai_dien');
+        const showImage = document.querySelector('#showImage');
+
+        if (e.target !== showImage && !anh_dai_dien.contains(e.target)) {
+            anh_dai_dien.style.display = 'none';
+        } 
+        if (e.target === showImage) {
+            anh_dai_dien.style.display = 'block';
+        }
+    });
+    document.addEventListener('click', function(e){
+        const projects = document.querySelector('#projects');
+        const members = document.querySelector('#members');
+        const my_projects = document.querySelector('#my_projects');
+        const discuss = document.querySelector('#discuss');
+        if (e.target === projects){
+            projects.style.backgroundColor = '#4c9beb'
+            members.style.backgroundColor = 'white'
+            my_projects.style.backgroundColor = 'white'
+            discuss.style.backgroundColor = 'white'
+        }
+        else if (e.target === members){
+            projects.style.backgroundColor = 'white'
+            members.style.backgroundColor = '#4c9beb'
+            my_projects.style.backgroundColor = 'white'
+            discuss.style.backgroundColor = 'white'
+        }
+        else if (e.target === my_projects){
+            projects.style.backgroundColor = 'white'
+            members.style.backgroundColor = 'white'
+            my_projects.style.backgroundColor = '#4c9beb'
+            discuss.style.backgroundColor = 'white'
+        }
+        else if(e.target === discuss){
+            projects.style.backgroundColor = 'white'
+            members.style.backgroundColor = 'white'
+            my_projects.style.backgroundColor = 'white'
+            discuss.style.backgroundColor = '#4c9beb'
+        }
+    })
+    document.addEventListener('click', function(e){
+        const is_comming = document.querySelector('#is_comming');
+        const to_do = document.querySelector('#to_do');
+        const completed = document.querySelector('#completed');
+        const project_is_comming = document.querySelectorAll('#project_is_comming');
+        const project_to_do = document.querySelectorAll('#project_to_do');
+        const project_completed = document.querySelectorAll('#project_completed');
+
+        if (e.target == is_comming) {
+            is_comming.style.borderBottom = '5px solid grey';
+            to_do.style.borderBottom = 'none';
+            completed.style.borderBottom = 'none';
+            Array.from(project_is_comming).forEach(function(e) {
+                e.style.display = 'block';
+            });
+            Array.from(project_to_do).forEach(function(e) {
+                e.style.display = 'none';
+            });
+            Array.from(project_completed).forEach(function(e) {
+                e.style.display = 'none';
+            });
+        } else if (e.target == to_do) {
+            to_do.style.borderBottom = '5px solid grey';
+            is_comming.style.borderBottom = 'none';
+            completed.style.borderBottom = 'none';
+            Array.from(project_is_comming).forEach(function(e) {
+                e.style.display = 'none';
+            });
+            Array.from(project_to_do).forEach(function(e) {
+                e.style.display = 'block';
+            });
+            Array.from(project_completed).forEach(function(e) {
+                e.style.display = 'none';
+            });
+        } else if (e.target == completed) {
+            completed.style.borderBottom = '5px solid grey';
+            to_do.style.borderBottom = 'none';
+            is_comming.style.borderBottom = 'none';
+            Array.from(project_is_comming).forEach(function(e) {
+                e.style.display = 'none';
+            });
+            Array.from(project_to_do).forEach(function(e) {
+                e.style.display = 'none';
+            });
+            Array.from(project_completed).forEach(function(e) {
+                e.style.display = 'block';
+            });
+        }
+    })
+    document.addEventListener('click', function(e){
+        const project_name = document.querySelector('#project_name');
+        const project_progress = document.querySelector('#project_progress');
+        function chi_tiet_du_an(){
+            const id_du_an = document.querySelector('#id_du_an').textContent;
+            fetch(`lay_chi_tiet_du_an.php?id_du_an=${ id_du_an }`).then(response=>response.text()).
+            then(response=>project_progress.innerHTML = response)
+        }
+        if (e.target == project_name){
+            chi_tiet_du_an();
+        }
+    })
+    </script>
 </body>
 </html>

@@ -53,4 +53,53 @@ document.addEventListener('DOMContentLoaded', function(){
             discuss.style.backgroundColor = '#4c9beb'
         }
     })
+    document.addEventListener('click', function(e){
+        const is_comming = document.querySelector('#is_comming');
+        const to_do = document.querySelector('#to_do');
+        const completed = document.querySelector('#completed');
+        const project_is_comming = document.querySelectorAll('#project_is_comming');
+        const project_to_do = document.querySelectorAll('#project_to_do');
+        const project_completed = document.querySelectorAll('#project_completed');
+
+        if (e.target == is_comming) {
+            is_comming.style.borderBottom = '5px solid grey';
+            to_do.style.borderBottom = 'none';
+            completed.style.borderBottom = 'none';
+            Array.from(project_is_comming).forEach(function(e) {
+                e.style.display = 'block';
+            });
+            Array.from(project_to_do).forEach(function(e) {
+                e.style.display = 'none';
+            });
+            Array.from(project_completed).forEach(function(e) {
+                e.style.display = 'none';
+            });
+        } else if (e.target == to_do) {
+            to_do.style.borderBottom = '5px solid grey';
+            is_comming.style.borderBottom = 'none';
+            completed.style.borderBottom = 'none';
+            Array.from(project_is_comming).forEach(function(e) {
+                e.style.display = 'none';
+            });
+            Array.from(project_to_do).forEach(function(e) {
+                e.style.display = 'block';
+            });
+            Array.from(project_completed).forEach(function(e) {
+                e.style.display = 'none';
+            });
+        } else if (e.target == completed) {
+            completed.style.borderBottom = '5px solid grey';
+            to_do.style.borderBottom = 'none';
+            is_comming.style.borderBottom = 'none';
+            Array.from(project_is_comming).forEach(function(e) {
+                e.style.display = 'none';
+            });
+            Array.from(project_to_do).forEach(function(e) {
+                e.style.display = 'none';
+            });
+            Array.from(project_completed).forEach(function(e) {
+                e.style.display = 'block';
+            });
+        }
+    })
 });
