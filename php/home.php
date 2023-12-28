@@ -158,15 +158,21 @@
 
 
         /* Phần này của Hải */
+        .ten_du_an{
+            border-bottom: 1px solid black;
+            padding-left: 20px
+        }
         .cac_tin_nhan{
             height: 500px;
             padding: 30px 30px 0px 30px;
-            display: block
+            display: none;
         }
         .chi-tiet-tin-nhan{
             position: relative;
-            height: 1050px;
-            display: none;
+        }
+        .noi-dung-tin-nhan{
+            height: 500px;
+            overflow:auto;
         }
 
         .tin-nhan{
@@ -202,6 +208,23 @@
             word-wrap: break-word;
             margin: 15px 40px 0px 800px;
             float: right; /* Canh lề phải */
+        }
+    
+        .thong_tin_tn{
+            
+            display:flex;
+        }
+
+        .ten_nguoi_gui{
+            position: absolute;
+            left: 50px;
+            top: -5px;
+            font-size: 70%;
+            color: rgb(120, 109, 109);
+
+        }
+        .tn{
+            margin-top:40px
         }
 
 
@@ -383,7 +406,8 @@
                                 echo "
                                 <div class='thong-tin-du-an'>
                                     <div class='tin-nhan' id='tin_nhan'>
-                                        <p style='display: none' id='id_du_an'>". $du_an['id_du_an'] ."</p>
+                                        <p style='display: none' id='nguoi_thuc_hien'>". $nguoi_thuc_hien ."</p>
+                                        <p style='display: none' id='id_da'>". $du_an['id_du_an'] ."</p>
                                         <h4>". $du_an['ten_du_an'] ."</h4>
                                     </div>
                                 </div>
@@ -393,17 +417,8 @@
                     ?>
                 </div>
                 <div class="chi-tiet-tin-nhan" id='chi_tiet_tin_nhan'>
-                    <div class='noi-dung-tin-nhan' id="noi_dung_tin_nhan">
-                        <p class="nguoi-khac">ayigwduagwdaygdwgyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
-                        <p class="ban-than">ayigwduauyagwdygawdyugawugdyuawgdyuagwyaigwdiagwdiyagwdiyagwdiygawiydgaiwydgiyagdiyawdiyagwdiyagwdiygawidgaiwgdiyawgdiyagwdiyagwiydaiwydgiyawgdiywadyuagwdawgwd</p>
-                    </div>
-                    <div>
-                        <form class='nhap-tin-nhan'>
-                            <input type="text" id="tin_nhan">
-                            <button id='gui_tin_nhan'>gửi</button>
-                        </form>
-                    </div>
-                </div>
+                    <!-- đây là phần hiện chi tiết tin nhắn -->
+                <div>
                 <div>
                     <!-- đây là phần để thêm các nội dung mới -->
                 </div>
@@ -543,22 +558,59 @@
 
 
 
-
-
     //hải
     document.addEventListener('click', function(e){
+        const discuss = document.querySelector('#discuss');
+        const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
+        if(e.target == discuss){
+            cac_tin_nhan.style.display='block'
+        }
+    });
+    
+
+    document.addEventListener('click', function(e){
         const gui_tin_nhan = document.querySelector('#gui_tin_nhan');
+        function gui_di_tin_nhan(id_du_an, ten_dang_nhap,noi_dung) {
+            fetch(`gui_di_tin_nhan.php?id_du_an=${id_du_an}&ten_dang_nhap=${ten_dang_nhap}&noi_dung=${noi_dung}`)
+        }
         if(e.target == gui_tin_nhan){
-            const tin_nhan = document.querySelector('#tin_nhan');
+            const tin_nhan = document.querySelector('#tin_nhan_gui');
             const noi_dung_tin_nhan = document.querySelector('#noi_dung_tin_nhan')
+            const noi_dung =  tin_nhan.value;
+            const id_du_an = document.querySelector('#idda').value;
+            const ten_dang_nhap = document.querySelector('#tdn').value;
             if(tin_nhan.value.length != 0){
                 const p = document.createElement('p')
                 p.innerHTML = tin_nhan.value;
                 p.className = 'ban-than';
                 noi_dung_tin_nhan.append(p);
-                tin_nhan.value = ''
-            }
+                gui_di_tin_nhan(id_du_an, ten_dang_nhap, noi_dung)
+                tin_nhan.value = '';
+            }       
             e.preventDefault();
+        }
+    })
+
+
+    document.addEventListener('click', function(e){
+        const tin_nhans = document.querySelectorAll('#tin_nhan');
+        const chi_tiet_tin_nhan = document.querySelector('#chi_tiet_tin_nhan');
+        function lay_chi_tiet_tin_nhan(id_du_an, ten_dang_nhap) {
+            fetch(`lay_chi_tiet_tin_nhan.php?id_du_an=${ id_du_an }&ten_dang_nhap=${ ten_dang_nhap }`).then(response=>response.text()).
+            then(response=>chi_tiet_tin_nhan.innerHTML = response)
+        }
+        
+        tin_nhans.forEach(function(tin_nhan) {
+            if (tin_nhan.contains(e.target)) {
+                const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
+                const id_du_an = tin_nhan.querySelector('#id_da').textContent;
+                const ten_dang_nhap = tin_nhan.querySelector('#nguoi_thuc_hien').textContent;
+                cac_tin_nhan.style.display = 'none';
+                lay_chi_tiet_tin_nhan(id_du_an, ten_dang_nhap);
+            }
+        });
+        if ((e.target == projects)||(e.target == members)||(e.target == discuss)){
+            chi_tiet_tin_nhan.innerHTML = ''
         }
     })
     </script>
