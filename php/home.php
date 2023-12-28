@@ -227,7 +227,6 @@
             margin-top:40px
         }
 
-
     </style>
     <!-- <script src="../javascript/home_script.js">
     </script> -->
@@ -419,7 +418,6 @@
                 <div class="chi-tiet-tin-nhan" id='chi_tiet_tin_nhan'>
                     <!-- đây là phần hiện chi tiết tin nhắn -->
                 <div>
-                <div>
                     <!-- đây là phần để thêm các nội dung mới -->
                 </div>
             </div>
@@ -459,18 +457,21 @@
         const projects = document.querySelector('#projects');
         const members = document.querySelector('#members');
         const discuss = document.querySelector('#discuss');
+        const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
         const project_content = document.querySelector('#project_content');
         if (e.target === projects){
             projects.style.backgroundColor = '#4c9beb';
             project_content.style.display = 'block';
             members.style.backgroundColor = 'white';
             discuss.style.backgroundColor = 'white';
+            cac_tin_nhan.style.display = 'none';
         }
         else if (e.target === members){
             projects.style.backgroundColor = 'white';
             project_content.style.display = 'none';
             members.style.backgroundColor = '#4c9beb';
             discuss.style.backgroundColor = 'white';
+            cac_tin_nhan.style.display = 'none';
         }
         else if(e.target === discuss){
             projects.style.backgroundColor = 'white';
@@ -548,7 +549,7 @@
                 lay_chi_tiet_du_an(id_du_an);
             }
         });
-        if ((e.target == projects)||(e.target == members)||(e.target == my_projects)||(e.target == discuss)){
+        if ((e.target == projects)||(e.target == members)||(e.target == discuss)){
             project_detail.innerHTML = ''
         }
     });
@@ -558,7 +559,10 @@
 
 
 
+
+
     //hải
+
     document.addEventListener('click', function(e){
         const discuss = document.querySelector('#discuss');
         const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
