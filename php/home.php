@@ -9,25 +9,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-
+    <?php
+        session_start();
+        require 'connect.php';
+        mysqli_set_charset($connect, 'UTF8');
+        if(!isset($_SESSION['ten_dang_nhap'])){
+            die('<span class="warning">bạn không có quyền truy cập trang này! Nhấp vào <a class="here" href="login.php">đây</a> để quay về trang đăng nhập</span>');
+        }
+    ?>
     <style>
         body{
             position: relative;
         }
         .projects-progress{
-            margin-top : 5%;
             display: grid;
+            grid-auto-flow: row;
             grid-template-columns: 30% 30% 30%;
-            display: none;
         }
-        
-
         /* phần cần gỡ */
         .projects{
             padding-bottom: 30px;
             display: none;
         }
-
+        .my-projects{
+            padding-bottom: 30px;
+            display: none;
+        }
         .status{
             padding: 10px 0px 15px 30px;
         }
@@ -47,7 +54,6 @@
             width: 95%;
             margin: 20px 0px 0px 30px;
         }
-
         .project-name{
             background-color: white;
             height: 100px;
@@ -74,16 +80,18 @@
             font-size: 90%;
             font-weight: bold;
         }
-        .nums_project{
+        .nums_requirement{
             font-weight: 400;
         }
         
-        .comming-child{
+        .comming-child, .to-do-child, .completed-child{
             margin-top: 20px;
             margin-bottom: 20px;
-            height: 170px
+            height: 170px;
         }
-
+        .comming-child p, .to-do-child p, .completed-child p {
+            word-wrap: break-word; /* Cho phép tự động xuống dòng khi cần thiết */
+        }
         .content{
             font-size: 130%;
             height: 657px;
@@ -107,16 +115,69 @@
             color: black;
         }
 
+        .project-detail-name{
+            padding: 18px;
+        }
+
+        .requirement{
+            
+        }
+
+        .label-requirement{
+            position: absolute;
+            bottom: 15px;
+            left: 25px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /* Phần này của Hải */
         .cac_tin_nhan{
             height: 500px;
             padding: 30px 30px 0px 30px;
-            display: none
+            display: block
         }
         .chi-tiet-tin-nhan{
             position: relative;
             height: 1050px;
+            display: none;
         }
+
+        .tin-nhan{
+            background-color: white;
+            height: 100px;
+            border: 1px solid rgb(214, 207, 207);
+            border-radius: 7px;
+            padding: 10px 0px 0px 20px;
+            cursor: pointer;
+        }
+
         .nhap-tin-nhan{
             position: fixed;
             bottom: 20px;
@@ -144,21 +205,11 @@
         }
 
 
-
-
     </style>
     <!-- <script src="../javascript/home_script.js">
     </script> -->
 </head>
 <body>
-    <?php
-        session_start();
-        require 'connect.php';
-        mysqli_set_charset($connect, 'UTF8');
-        if(!isset($_SESSION['ten_dang_nhap'])){
-            die('<span class="warning">bạn không có quyền truy cập trang này! Nhấp vào <a class="here" href="login.php">đây</a> để quay về trang đăng nhập</span>');
-        }
-    ?>
     <header class="container-fluid header" id="container-fluid">
         <div class="row justify-content-between bg-header">
             <div class="col-7 row test align-content-center justify-content-center">
@@ -254,10 +305,6 @@
                         <p class="col-10 pl-2 name-function" id="members">Thành viên</p>
                     </div>
                     <div class="row function-item">
-                        <i class="fa-solid fa-folder col-2 logo-function"></i>
-                        <p class="col-10 pl-2 name-function" id="my_projects">Dự án của tôi</p>
-                    </div>
-                    <div class="row function-item">
                         <i class="fa-solid fa-message col-2 logo-function"></i>
                         <p class="col-10 pl-2 name-function" id="discuss">Trao đổi công việc</p>
                     </div>
@@ -315,45 +362,37 @@
                         ?>
                     </div>
                 </div>
-                <div class="projects-progress justify-content-around" id="project_progress">
-                    <div class='is_comming bg-projects'>
-                        <b class="progress-status row">IS COMMING <span class='nums_project'>3</span></b>
-                        <div class='bg-light col-11 ml-3 comming-child'>
-                            <p>quản lý dự án 1</p>
-                        </div>
-                        <div class='bg-light col-11 ml-3 comming-child'>
-                            <p>quản lý dự án 1</p>
-                        </div>
-                        <div class='bg-light col-11 ml-3 comming-child'>
-                            <p>quản lý dự án 1</p>
-                        </div>
-                        <div class='bg-light col-11 ml-3 comming-child'>
-                            <p>quản lý dự án 1</p>
-                        </div>
-                    </div>
-                    <div class='to_do bg-projects'>
-                        <b class="progress-status">TO DO <span class='nums_project'>3</span></b>
-                    </div>
-                    <div class='completed bg-projects'>
-                        <b class="progress-status">COMPLETED <span class='nums_project'>3</span></b>
-                    </div>
+                <div class='project-detail' id='project_detail'>
+                    <!-- chỗ để dự án hiển thị -->
                 </div>
-                <div class="cac_tin_nhan bg-projects">
+
+                <div>
+                    <!-- đây là phần để thêm các nội dung mới -->
+                </div>
+
+
+                <!-- phần của hải -->
+                <div class="cac_tin_nhan bg-projects" id='cac_tin_nhan'>
                     <?php
-                        $select_du_an = $connect->query("SELECT * FROM `du_an`");
-                        while($du_an = $select_du_an->fetch_assoc()){
-                            echo "
-                            <div class='thong-tin-du-an'>
-                                <div class='project-name' id='project_name'>
-                                    <p style='display: none' id='id_du_an'>". $du_an['id_du_an'] ."</p>
-                                    <h4>". $du_an['ten_du_an'] ."</h4>
+                        $nguoi_thuc_hien = $_SESSION['ten_dang_nhap'];
+                        $select_thuc_hien = $connect->query("SELECT * FROM `thuc_hien` where nguoi_thuc_hien = '$nguoi_thuc_hien'");
+                        if($select_thuc_hien->num_rows > 0){
+                            while($row = $select_thuc_hien->fetch_assoc()){
+                                $id_du_an = $row['id_du_an'];
+                                $du_an = ($connect->query("SELECT * FROM `du_an` WHERE id_du_an = '$id_du_an'"))->fetch_assoc();
+                                echo "
+                                <div class='thong-tin-du-an'>
+                                    <div class='tin-nhan' id='tin_nhan'>
+                                        <p style='display: none' id='id_du_an'>". $du_an['id_du_an'] ."</p>
+                                        <h4>". $du_an['ten_du_an'] ."</h4>
+                                    </div>
                                 </div>
-                            </div>
-                            ";
+                                ";
+                            }
                         }
                     ?>
                 </div>
-                <div class="chi-tiet-tin-nhan">
+                <div class="chi-tiet-tin-nhan" id='chi_tiet_tin_nhan'>
                     <div class='noi-dung-tin-nhan' id="noi_dung_tin_nhan">
                         <p class="nguoi-khac">ayigwduagwdaygdwgyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
                         <p class="ban-than">ayigwduauyagwdygawdyugawugdyuawgdyuagwyaigwdiagwdiyagwdiyagwdiygawiydgaiwydgiyagdiyawdiyagwdiyagwdiygawidgaiwgdiyawgdiyagwdiyagwiydaiwydgiyawgdiywadyuagwdawgwd</p>
@@ -404,35 +443,24 @@
     document.addEventListener('click', function(e){
         const projects = document.querySelector('#projects');
         const members = document.querySelector('#members');
-        const my_projects = document.querySelector('#my_projects');
         const discuss = document.querySelector('#discuss');
         const project_content = document.querySelector('#project_content');
         if (e.target === projects){
             projects.style.backgroundColor = '#4c9beb';
             project_content.style.display = 'block';
             members.style.backgroundColor = 'white';
-            my_projects.style.backgroundColor = 'white';
             discuss.style.backgroundColor = 'white';
         }
         else if (e.target === members){
             projects.style.backgroundColor = 'white';
             project_content.style.display = 'none';
             members.style.backgroundColor = '#4c9beb';
-            my_projects.style.backgroundColor = 'white';
-            discuss.style.backgroundColor = 'white';
-        }
-        else if (e.target === my_projects){
-            projects.style.backgroundColor = 'white';
-            project_content.style.display = 'none';
-            members.style.backgroundColor = 'white';
-            my_projects.style.backgroundColor = '#4c9beb';
             discuss.style.backgroundColor = 'white';
         }
         else if(e.target === discuss){
             projects.style.backgroundColor = 'white';
             project_content.style.display = 'none';
             members.style.backgroundColor = 'white';
-            my_projects.style.backgroundColor = 'white';
             discuss.style.backgroundColor = '#4c9beb';
         }
     })
@@ -487,20 +515,37 @@
     })
     document.addEventListener('click', function(e) {
         const project_names = document.querySelectorAll('#project_name');
-        const project_progress = document.querySelector('#project_progress');
-        function chi_tiet_du_an(id_du_an) {
+        const project_detail = document.querySelector('#project_detail');
+        const project_content = document.querySelector('#project_content');
+        const projects = document.querySelector('#projects');
+        const members = document.querySelector('#members');
+        const my_projects = document.querySelector('#my_projects');
+        const discuss = document.querySelector('#discuss');
+        function lay_chi_tiet_du_an(id_du_an) {
             fetch(`lay_chi_tiet_du_an.php?id_du_an=${ id_du_an }`).then(response=>response.text()).
-            then(response=>project_progress.innerHTML = response)
+            then(response=>project_detail.innerHTML = response)
         }
-
-
+        
         project_names.forEach(function(project_name) {
             if (project_name.contains(e.target)) {
                 const id_du_an = project_name.querySelector('#id_du_an').textContent;
-                chi_tiet_du_an(id_du_an);
+                project_content.style.display = 'none';
+                lay_chi_tiet_du_an(id_du_an);
             }
         });
+        if ((e.target == projects)||(e.target == members)||(e.target == my_projects)||(e.target == discuss)){
+            project_detail.innerHTML = ''
+        }
     });
+
+
+
+
+
+
+
+
+    //hải
     document.addEventListener('click', function(e){
         const gui_tin_nhan = document.querySelector('#gui_tin_nhan');
         if(e.target == gui_tin_nhan){
@@ -512,9 +557,7 @@
                 p.className = 'ban-than';
                 noi_dung_tin_nhan.append(p);
                 tin_nhan.value = ''
-                
             }
-
             e.preventDefault();
         }
     })

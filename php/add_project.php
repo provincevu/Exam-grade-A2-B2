@@ -132,7 +132,13 @@
                 require 'connect.php';
                 mysqli_set_charset($connect, 'UTF8');
                 $nhan_vien_data = $connect->query("SELECT `ten_dang_nhap`,`ten` FROM `nhan_vien` WHERE chuc_vu_id = 1");
-                $id_du_an = ($connect->query('SELECT `id_du_an` FROM `du_an` ORDER BY id_du_an DESC LIMIT 1')->fetch_assoc())['id_du_an'];
+                $du_an_data = $connect->query('SELECT `id_du_an` FROM `du_an` ORDER BY id_du_an DESC LIMIT 1');
+                if ($id_du_an->num_rows > 0){
+                    $id_du_an = $du_an_data->fetch_assoc()['id_du_an'];
+                }
+                else{
+                    $id_du_an = 1;
+                }
                 while($quan_ly = $nhan_vien_data->fetch_assoc()){
                     echo "<option value=". $quan_ly['ten_dang_nhap'] .">". $quan_ly['ten'] ."</option>";
                 }
