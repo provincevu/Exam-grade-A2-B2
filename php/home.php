@@ -290,7 +290,29 @@
 
 
 
+    /* phần này của Minh */
+    .ten_du_an{
+        border-bottom: 1px solid black;
+        padding-left: 20px
+    }
+    .them_cong_viec{
+        height: 655px;
+        padding: 30px 30px 0px 30px;
+        display: none;
+    }
+    .tieu_de{
+        padding:30px 30px 0px 30px;
+        color: red;
 
+    }
+    .thong_tin_cong_viec{
+        font-size: 90%
+    }
+    .save_work{
+        position: fixed;
+        bottom: 3%;
+        left: 27%
+    }
 
 
 
@@ -536,7 +558,13 @@
                         if($_SESSION['chuc_vu_id'] == 2){
                             echo '<div class="row function-item">
                                     <i class="fa-solid fa-briefcase col-2 logo-function"></i>
-                                    <p class="col-10 pl-2 name-function" id="discuss">Thêm công việc</p>
+                                    <p class="col-10 pl-2 name-function" id="add_work">Thêm công việc</p>
+                                </div>';
+                        }
+                        else{
+                            echo '<div class="row function-item hid">
+                                    <i class="fa-solid fa-briefcase col-2 logo-function"></i>
+                                    <p class="col-10 pl-2 name-function" id="add_work">Thêm công việc</p>
                                 </div>';
                         }
                         if($_SESSION['chuc_vu_id'] == 3){
@@ -678,6 +706,42 @@
 
 
 
+                <!-- phần này của Minh -->
+                <div class="them_cong_viec bg-projects" id='them_cong_viec'>
+                    <form method="get" id='form_them_cv'>
+                        Vui lòng chọn dự án muốn thêm công việc: <select id="id_du_an_select">
+                            <?php
+                                $select_du_an_2 = $connect->query("SELECT * FROM `du_an`");
+                                if($select_du_an_2->num_rows > 0){
+                                    while($row = $select_du_an_2->fetch_assoc()){
+                                        echo '<option value='. $row['id_du_an'] .'>'. $row['ten_du_an'] .'</option>';
+                                    }
+                                }
+                            ?>
+                        </select><br>
+                        <p></p>
+                        <div class='thong_tin_cong_viec mb-3' id='thong_tin_cong_viec'>
+                            <input type="text" class="noi_dung_cong_viec" placeholder="nội dung công việc">
+                            Loại công việc: 
+                            <select class="phan_loai">
+                                <option value="1">lên kế hoạch</option>
+                                <option value="2">sửa chữa</option>
+                                <option value="3">đánh giá</option>
+                                <option value="4">phát triển</option>
+                            </select>
+                            ngày bắt đầu:
+                            <input type="date" class="start" placeholder="ngày bắt đầu">
+                            ngày kết thúc:
+                            <input type="date" class="end" placeholder="ngày kết thúc"><br>
+                        </div>
+                    </form>
+                    <button class='mt-2' id='them_cv'>thêm công việc</button>
+                    <button class='save_work' id='save_work'>Lưu thay đổi</button>
+                </div>
+
+
+
+
                 <!-- phần của hải -->
                 <!-- phần thành viên-->
 
@@ -775,6 +839,8 @@
         const remove_project = document.querySelector('#remove_project');
         const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
         const cac_thanh_vien = document.querySelector('#cac_thanh_vien');
+        const add_work = document.querySelector('#add_work');
+        const them_cong_viec = document.querySelector('#them_cong_viec');
         if (e.target === projects){
             projects.style.backgroundColor = '#4c9beb';
             project_content.style.display = 'block';
@@ -786,6 +852,8 @@
             update_and_remove.style.display = 'none';
             cac_tin_nhan.style.display = 'none';
             cac_thanh_vien.style.display = 'none';
+            add_work.style.backgroundColor = 'white';
+            them_cong_viec.style.display = 'none';
         }
         else if (e.target === members){
             projects.style.backgroundColor = 'white';
@@ -798,6 +866,8 @@
             update_and_remove.style.display = 'none';
             cac_tin_nhan.style.display = 'none';
             cac_thanh_vien.style.display = 'block';
+            add_work.style.backgroundColor = 'white';
+            them_cong_viec.style.display = 'none';
         }
         else if(e.target === discuss){
             projects.style.backgroundColor = 'white';
@@ -810,6 +880,8 @@
             update_and_remove.style.display = 'none';
             cac_thanh_vien.style.display = 'none';
             cac_tin_nhan.style.display = 'block';
+            add_work.style.backgroundColor = 'white';
+            them_cong_viec.style.display = 'none';
         }
         else if(e.target === add_project){
             projects.style.backgroundColor = 'white';
@@ -822,6 +894,8 @@
             update_and_remove.style.display = 'none';
             cac_tin_nhan.style.display = 'none';
             cac_thanh_vien.style.display = 'none';
+            add_work.style.backgroundColor = 'white';
+            them_cong_viec.style.display = 'none';
         }
         else if(e.target === remove_project){
             projects.style.backgroundColor = 'white';
@@ -834,6 +908,22 @@
             update_and_remove.style.display = 'block';
             cac_tin_nhan.style.display = 'none';
             cac_thanh_vien.style.display = 'none';
+            add_work.style.backgroundColor = 'white';
+            them_cong_viec.style.display = 'none';
+        }
+        else if(e.target === add_work){
+            projects.style.backgroundColor = 'white';
+            project_content.style.display = 'none';
+            members.style.backgroundColor = 'white';
+            discuss.style.backgroundColor = 'white';
+            add_project.style.backgroundColor = 'white';
+            remove_project.style.backgroundColor = 'white';
+            div_add_project.style.display = 'none';
+            update_and_remove.style.display = 'none';
+            cac_tin_nhan.style.display = 'none';
+            cac_thanh_vien.style.display = 'none';
+            add_work.style.backgroundColor = '#4c9beb';
+            them_cong_viec.style.display = 'block';
         }
 
         //hiển thị qua lại các trạng thái dự án
@@ -921,11 +1011,7 @@
             remove_project.style.backgroundColor = 'white';
             update_and_remove.style.display = 'none';
         }
-    });
 
-
-    
-    document.addEventListener('submit', function(e){
         //thêm dự án
         const button_add_project = document.querySelector('#button_add_project');
         if(e.target == button_add_project){
@@ -936,7 +1022,9 @@
             .then(response => response.text())
             .then(response => alert(response));
         }
-    })
+    });
+
+
 
     
     //form thêm dự án
@@ -1007,6 +1095,9 @@
     //hải
 
     document.addEventListener('click', function(e){
+        const projects = document.querySelector('#projects');
+        const members = document.querySelector('#members');
+        const discuss = document.querySelector('#discuss');
         const ten_nv = document.querySelectorAll('#ten');
         const thong_tin = document.querySelector('#thong_tin');
         const cac_thanh_vien = document.querySelector('#cac_thanh_vien');
@@ -1025,11 +1116,8 @@
         if ((e.target == projects)||(e.target == members)||(e.target == discuss)){
             thong_tin.innerHTML = ''
         }
-    })
 
-    
-
-    document.addEventListener('click', function(e){
+        // gửi tin nhắn
         const gui_tin_nhan = document.querySelector('#gui_tin_nhan');
         function gui_di_tin_nhan(id_du_an, ten_dang_nhap,noi_dung) {
             fetch(`gui_di_tin_nhan.php?id_du_an=${id_du_an}&ten_dang_nhap=${ten_dang_nhap}&noi_dung=${noi_dung}`)
@@ -1049,9 +1137,8 @@
             }       
             e.preventDefault();
         }
-    })
 
-    document.addEventListener('click', function(e){
+        // hiện tin nhắn
         const tin_nhans = document.querySelectorAll('#tin_nhan');
         const chi_tiet_tin_nhan = document.querySelector('#chi_tiet_tin_nhan');
         function lay_chi_tiet_tin_nhan(id_du_an, ten_dang_nhap) {
@@ -1073,7 +1160,54 @@
             chi_tiet_tin_nhan.innerHTML = ''
         }
     })
-    
+
+
+
+
+
+
+
+
+    //Minh
+    document.addEventListener('click', function(e){
+        const them_cv = document.querySelector('#them_cv');
+        const form_them_cv = document.querySelector('#form_them_cv');
+        const thong_tin_cong_viec = document.querySelector('#thong_tin_cong_viec');
+        const tt = "<input type='text' class='noi_dung_cong_viec' placeholder='nội dung công việc'> Loại công việc: <select class='phan_loai'><option value='1'>lên kế hoạch</option><option value='2'>sửa chữa</option><option value='3'>đánh giá</option><option value='4'>phát triển</option></select> ngày bắt đầu: <input type='date' class='start' placeholder='ngày bắt đầu'> ngày kết thúc: <input type='date' class='end' placeholder='ngày kết thúc'><br>"
+        if(e.target == them_cv){
+            const div = document.createElement('div')
+            div.innerHTML = tt;
+            div.className = 'thong_tin_cong_viec mb-3';
+            form_them_cv.append(div);
+        }
+    })
+
+    document.addEventListener('click', function(e){
+        const save_work = document.querySelector('#save_work');
+        const add_work = document.querySelector('#add_work');
+
+        function them_cong_viec(id_du_an, noi_dung, phan_loai, ngay_bat_dau, ngay_ket_thuc){
+            const noi_dung_value = noi_dung.value;
+            const phan_loai_value = phan_loai.value;
+            const ngay_bat_dau_value = ngay_bat_dau.value;
+            const ngay_ket_thuc_value = ngay_ket_thuc.value;
+            fetch(`them_cong_viec.php?id_du_an=${id_du_an}&noi_dung=${noi_dung_value}&phan_loai=${phan_loai_value}&ngay_bat_dau=${ngay_bat_dau_value}&ngay_ket_thuc=${ngay_ket_thuc_value}`)
+        }
+
+        if(e.target == save_work){
+            const id_du_an_select = document.querySelector('#id_du_an_select').value;
+            const noi_dung_cong_viec = document.querySelectorAll('.noi_dung_cong_viec');
+            const phan_loai = document.querySelectorAll('.phan_loai');
+            const start = document.querySelectorAll('.start');
+            const end = document.querySelectorAll('.end');
+            for (let i = 0; i < noi_dung_cong_viec.length; i++) {
+                them_cong_viec(id_du_an_select,noi_dung_cong_viec[i], phan_loai[i], start[i], end[i])
+            }
+            alert('thêm thành công!')
+            location.reload();
+        }
+    })
+
 
     </script>
 </body>
