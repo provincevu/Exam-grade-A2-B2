@@ -313,6 +313,9 @@
         bottom: 3%;
         left: 27%
     }
+    #them_nhan_vien{
+        display: none;
+    }
 
 
 
@@ -358,7 +361,7 @@
 
 
 
-.ten_du_an{
+        .ten_du_an{
             border-bottom: 1px solid black;
             padding-left: 20px
         }
@@ -417,10 +420,6 @@
             background-color:rgb(126, 182, 234);
         }
     
-        .thong_tin_tn{
-            
-            display:flex;
-        }
 
         .ten_nguoi_gui{
             position: absolute;
@@ -560,11 +559,19 @@
                                     <i class="fa-solid fa-briefcase col-2 logo-function"></i>
                                     <p class="col-10 pl-2 name-function" id="add_work">Thêm công việc</p>
                                 </div>';
+                            echo '<div class="row function-item">
+                                <i class="fa-solid fa-briefcase col-2 logo-function"></i>
+                                <p class="col-10 pl-2 name-function" id="add_members">Thêm thành viên</p>
+                            </div>';
                         }
                         else{
                             echo '<div class="row function-item hid">
                                     <i class="fa-solid fa-briefcase col-2 logo-function"></i>
                                     <p class="col-10 pl-2 name-function" id="add_work">Thêm công việc</p>
+                                </div>';
+                            echo '<div class="row function-item hid">
+                                    <i class="fa-solid fa-briefcase col-2 logo-function"></i>
+                                    <p class="col-10 pl-2 name-function" id="add_members">Thêm thành viên</p>
                                 </div>';
                         }
                         if($_SESSION['chuc_vu_id'] == 3){
@@ -739,6 +746,37 @@
                     <button class='save_work' id='save_work'>Lưu thay đổi</button>
                 </div>
 
+                
+                <!-- phần này thêm nhân viên vào dự án -->
+                <div class="them_nhan_vien bg-projects" id='them_nhan_vien'>
+                    <form method="get" id='form_them_thanh_vien'>
+                        Vui lòng chọn dự án muốn thêm nhân viên: <select id="id_du_an_select_2">
+                            <?php
+                                $select_du_an_2 = $connect->query("SELECT * FROM `du_an`");
+                                if($select_du_an_2->num_rows > 0){
+                                    while($row = $select_du_an_2->fetch_assoc()){
+                                        echo '<option value='. $row['id_du_an'] .'>'. $row['ten_du_an'] .'</option>';
+                                    }
+                                }
+                            ?>
+                        </select><br><p></p>
+                        Vui lòng chọn công việc muốn thêm nhân viên: <select id="id_cong_viec_select_2"></select>
+                        <p></p>
+                        <?php
+                            $select_ten_nhan_vien = $connect->query("SELECT * FROM `nhan_vien`");
+                            if ($select_ten_nhan_vien->num_rows > 0) {
+                                
+                                while ($row = $select_ten_nhan_vien->fetch_assoc()) {
+                                    echo '<input type="checkbox" class="nhan_vien_duoc_giao" value="' . $row['ten_dang_nhap'] . '"> ' . $row['ten'] . '<br>';
+                                }
+                            } else {
+                                echo "Không có tên ai.";
+                            }
+                        ?>
+                    </form>
+                    <button class='save_member' id='save_member'>Giao công việc</button>
+                </div>                             
+                    
 
 
 
@@ -841,6 +879,10 @@
         const cac_thanh_vien = document.querySelector('#cac_thanh_vien');
         const add_work = document.querySelector('#add_work');
         const them_cong_viec = document.querySelector('#them_cong_viec');
+        const add_member = document.querySelector('#add_members');
+        const them_nhan_vien = document.querySelector('#them_nhan_vien');
+        
+
         if (e.target === projects){
             projects.style.backgroundColor = '#4c9beb';
             project_content.style.display = 'block';
@@ -854,6 +896,9 @@
             cac_thanh_vien.style.display = 'none';
             add_work.style.backgroundColor = 'white';
             them_cong_viec.style.display = 'none';
+            add_member.style.backgroundColor = 'white';
+            them_nhan_vien.style.display = 'none';
+            
         }
         else if (e.target === members){
             projects.style.backgroundColor = 'white';
@@ -868,6 +913,8 @@
             cac_thanh_vien.style.display = 'block';
             add_work.style.backgroundColor = 'white';
             them_cong_viec.style.display = 'none';
+            add_member.style.backgroundColor = 'white';
+            them_nhan_vien.style.display = 'none';
         }
         else if(e.target === discuss){
             projects.style.backgroundColor = 'white';
@@ -882,6 +929,8 @@
             cac_tin_nhan.style.display = 'block';
             add_work.style.backgroundColor = 'white';
             them_cong_viec.style.display = 'none';
+            add_member.style.backgroundColor = 'white';
+            them_nhan_vien.style.display = 'none';
         }
         else if(e.target === add_project){
             projects.style.backgroundColor = 'white';
@@ -896,6 +945,8 @@
             cac_thanh_vien.style.display = 'none';
             add_work.style.backgroundColor = 'white';
             them_cong_viec.style.display = 'none';
+            add_member.style.backgroundColor = 'white';
+            them_nhan_vien.style.display = 'none';
         }
         else if(e.target === remove_project){
             projects.style.backgroundColor = 'white';
@@ -910,6 +961,9 @@
             cac_thanh_vien.style.display = 'none';
             add_work.style.backgroundColor = 'white';
             them_cong_viec.style.display = 'none';
+            add_member.style.backgroundColor = 'white';
+            them_nhan_vien.style.display = 'none';
+
         }
         else if(e.target === add_work){
             projects.style.backgroundColor = 'white';
@@ -924,7 +978,28 @@
             cac_thanh_vien.style.display = 'none';
             add_work.style.backgroundColor = '#4c9beb';
             them_cong_viec.style.display = 'block';
+            add_member.style.backgroundColor = 'white';
+            them_nhan_vien.style.display = 'none';
+
         }
+        else if(e.target === add_members){
+            projects.style.backgroundColor = 'white';
+            project_content.style.display = 'none';
+            members.style.backgroundColor = 'white';
+            discuss.style.backgroundColor = 'white';
+            add_project.style.backgroundColor = 'white';
+            remove_project.style.backgroundColor = 'white';
+            div_add_project.style.display = 'none';
+            update_and_remove.style.display = 'none';
+            cac_tin_nhan.style.display = 'none';
+            cac_thanh_vien.style.display = 'none';
+            add_work.style.backgroundColor = 'white';
+            them_cong_viec.style.display = 'none';
+            add_member.style.backgroundColor = '#4c9beb';
+            them_nhan_vien.style.display = 'block';
+
+        }
+
 
         //hiển thị qua lại các trạng thái dự án
         const is_comming = document.querySelector('#is_comming');
@@ -1123,17 +1198,18 @@
             fetch(`gui_di_tin_nhan.php?id_du_an=${id_du_an}&ten_dang_nhap=${ten_dang_nhap}&noi_dung=${noi_dung}`)
         }
         if(e.target == gui_tin_nhan){
-            const tin_nhan = document.querySelector('#tin_nhan_gui').value;
+            const tin_nhan = document.querySelector('#tin_nhan_gui');
+            const noi_dung = tin_nhan.value
             const noi_dung_tin_nhan = document.querySelector('#noi_dung_tin_nhan')
             const id_du_an = document.querySelector('#idda').value;
             const ten_dang_nhap = document.querySelector('#tdn').value;
-            if(tin_nhan.length != 0){
+            if(tin_nhan.value.length != 0){
                 const p = document.createElement('p')
-                p.innerHTML = tin_nhan;
+                p.innerHTML = noi_dung;
                 p.className = 'ban-than';
                 noi_dung_tin_nhan.append(p);
                 gui_di_tin_nhan(id_du_an, ten_dang_nhap, noi_dung)
-                tin_nhan = '';
+                tin_nhan.value = '';
             }       
             e.preventDefault();
         }
@@ -1205,6 +1281,31 @@
             }
             alert('thêm thành công!')
             location.reload();
+        }
+
+
+        const save_member = document.querySelector('#save_member')
+        if(e.target == save_member){
+            const id_du_an_select_2 = document.querySelector('#id_du_an_select_2').value
+            const id_cong_viec_select_2 = document.querySelector('#id_cong_viec_select_2').value
+            const nhung_nhan_vien_duoc_giao = document.querySelectorAll('.nhan_vien_duoc_giao')
+            nhung_nhan_vien_duoc_giao.forEach(function(nhan_vien_duoc_giao){
+                if(nhan_vien_duoc_giao.checked){
+                    const t_d_n = nhan_vien_duoc_giao.value
+                    fetch(`them_nhan_vien.php?id_cong_viec=${id_cong_viec_select_2}&ten_dang_nhap=${t_d_n}&id_du_an=${id_du_an_select_2}`)
+                }
+            })
+            alert('thêm thành công')
+        }
+
+
+        const id_du_an_select_2 = document.querySelector('#id_du_an_select_2')
+        const id_cong_viec_select_2 = document.querySelector('#id_cong_viec_select_2')
+        id_du_an_select_2.onchange = function(){
+            const value_id_du_an_select = id_du_an_select_2.value
+            fetch(`tao_chon_cong_viec.php?id_du_an=${value_id_du_an_select}`)
+            .then(response => response.text())
+            .then(response => id_cong_viec_select_2.innerHTML = response)
         }
     })
 
