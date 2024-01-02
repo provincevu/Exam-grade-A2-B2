@@ -1,20 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .nguoi-khac{
-            display: inline-block;
-            max-width: 50%;
-            border: 1px solid black;
-            word-wrap: break-word;
-            margin: 15px 0px 0px 50px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Xác nhận ý định</title>
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+      
+      .confirmation-box {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      
+      .confirmation-box h2 {
+        margin-bottom: 10px;
+      }
+      
+      .confirmation-box p {
+        margin-bottom: 20px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      button:hover {
+        background-color: #0056b3;
+      }
+      
+</style>
 <body>
-    <p class="nguoi-khac col-4">yyyyawgdy</p>
+
+  <div class="confirmation-box">
+    <h2>Xác nhận ý định</h2>
+    <form id="confirmForm">
+      <p>Bạn có chắc chắn muốn thực hiện điều gì đó không?</p>
+      <button id="confirmButton" type="submit">Xác nhận</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

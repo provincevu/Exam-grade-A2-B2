@@ -26,15 +26,17 @@
             grid-auto-flow: row;
             grid-template-columns: 30% 30% 30%;
         }
+
+        #projects{
+            background-color: rgb(76, 155, 235);
+        }
+
         /* phần cần gỡ */
         .projects{
             padding-bottom: 30px;
-            display: none;
+            display: block
         }
-        .my-projects{
-            padding-bottom: 30px;
-            display: none;
-        }
+
         .status{
             padding: 10px 0px 15px 30px;
         }
@@ -119,8 +121,9 @@
             padding: 18px;
         }
 
-        .requirement{
-            
+        .project-detail-name i{
+            font-size: 80%;
+            color: rgb(114, 110, 110);
         }
 
         .label-requirement{
@@ -129,12 +132,154 @@
             left: 25px;
         }
 
+        .label-self{
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+        }
+        .div_add_project{
+            background-image: url('../image/add_project.jpg');
+            background-size: 100%;
+            background-attachment: fixed;
+            height: 656px;
+            display: none;
+        }
+        #form_add_project{
+            opacity: 0.83;
+            padding: 9% 0% 0% 22%;
+        }
+        #form_add_project input{
+            height: 55px;
+            border-radius: 15px;
+            margin-bottom: 17px;
+            border: 1px solid white;
+            padding: 0px 7px 0px 10px;
+            width: 70%;
+        }
+        #form_add_project input:focus{
+            outline: none;
+        }
+        #form_add_project p{
+            margin-bottom: 0px;
+        }
+        #form_add_project .add{
+            margin-left: -26px;
+            cursor: pointer;
+        }
+        #form_add_project #button_add_project{
+            background-color: rgb(84, 227, 84);
+            margin-bottom: 150px;
+        }
+        #form_add_project ul{
+            font-size: 85%;
+        }
+        #form_add_project span{
+            color: red;
+            font-size: 90%;
+            margin: 0px;
+            height: 5px;
+        }
+        .tb_add{
+            position: absolute;
+            top: 0
+        }
 
 
+        .update_and_remove{
+            display: none;
+        }
+        .update_and_remove h1{
+            margin: 20px 0px 20px 20px;
+            font-weight: bold
+        }
+        .update_and_remove a{
+            display: block;
+            text-decoration: none;
+            color: black;
+        }
+        .update_and_remove table{
+            border-collapse: collapse;
+            margin-left: 6%;
+        }
+        .update_and_remove tr:hover{
+            background-color: orange;
+        }
+        .update_and_remove th{
+            height: 40px;
+        }
+        .td_name{
+            width: 580px;
+            height: 30px;
+        }
+        .days{
+            width: 19%;
+        }
+        .update_and_remove .bg-lb{
+            background-color: lightblue
+        }
+        .update_and_remove .bg-yellow{
+            background-color: lightyellow
+        }
+        .update_and_remove caption{
+            font-weight: bold;
+            font-size: 130%
+        }
+        .button_remove{
+            cursor: pointer;
+        }
 
+        .confirm_delete{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0,0.7);
+            display: none
+        }
 
+        .confirm_delete div{
+            width: 30%;
+            height: 30%;
+            background-color: white;
+            margin: 15% 0% 0% 36%;
+            padding-top: 35px
 
+        }
 
+        .confirm_button{
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(0,123,255);
+            color: #fff;
+            cursor: pointer;
+        }
+        .confirm_button:hover{
+            background-color: rgb(5, 87, 175);
+        }
+
+        .cancel_button{
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(189, 172, 172);
+            color: rgb(69, 61, 61);
+            cursor: pointer;
+        }
+        .cancel_button:hover{
+            background-color: rgb(106, 100, 100);
+        }
+
+        .confirm_delete p{
+            margin-bottom: 20px;
+        }
+        .end_td{
+            padding: 0
+        }
+        .hid{
+            display: none
+        }
 
 
 
@@ -158,7 +303,40 @@
 
 
         /* Phần này của Hải */
-        .ten_du_an{
+
+
+        /* Thành viên */
+        .cac_thanh_vien{
+            padding-left: 20px;
+            padding-bottom:20px;
+            display: none;
+        }
+        .tieu_de{
+            position: relative;
+            border-bottom: 1px solid black;
+            padding-left: 30px;
+            padding-bottom:10px;
+        }
+        .ten{
+            cursor: pointer;
+        }
+        #ten_chi_tiet{
+            text-align: center;
+        }
+        .anh{
+            padding-top: 20px;
+        }
+        .khung{
+            border: 5px solid black;
+            align :center;
+        }
+/* Trao đổi tin nhăn */
+
+
+
+
+
+.ten_du_an{
             border-bottom: 1px solid black;
             padding-left: 20px
         }
@@ -171,7 +349,7 @@
             position: relative;
         }
         .noi-dung-tin-nhan{
-            height: 500px;
+            height: 550px;
             overflow:auto;
         }
 
@@ -196,18 +374,25 @@
 
         .nguoi-khac{
             display: inline-block;
+            border-radius:15px;
+            padding: 5px 20px 5px 20px;
             max-width: 50%;
             border: 1px solid black;
             word-wrap: break-word;
             margin: 15px 0px 0px 50px;
+            background-color: rgb(234, 229, 222);
         }
         .ban-than{
             display: inline-block;
+            border-radius:15px;
+            padding: 5px 20px 5px 20px;
             max-width: 50%;
             border: 1px solid black;
             word-wrap: break-word;
             margin: 15px 40px 0px 800px;
             float: right; /* Canh lề phải */
+            color: white;
+            background-color:rgb(126, 182, 234);
         }
     
         .thong_tin_tn{
@@ -226,6 +411,11 @@
         .tn{
             margin-top:40px
         }
+
+
+
+
+
 
     </style>
     <!-- <script src="../javascript/home_script.js">
@@ -246,9 +436,21 @@
                 <div class="row justify-content-center">
                     <div class="col-9 bg-header mt-3 position-relative">
                         <i class="fas fa-search icon-search"></i>
-                        <input type="text" class="search-form" placeholder="tìm kiếm nhanh công việc">
+                        <input type="text" class="search-form" list="suggestion" placeholder="tìm kiếm nhanh công việc" id='ten_du_an'>
+                        <datalist id="suggestion">
+                            <?php
+                                $ten_dang_nhap = $_SESSION['ten_dang_nhap'];
+                                $search_data = $connect->query("SELECT * FROM `thuc_hien`
+                                                                INNER JOIN cong_viec ON thuc_hien.id_cong_viec = cong_viec.id_cong_viec
+                                                                INNER JOIN du_an ON cong_viec.id_du_an = du_an.id_du_an
+                                                                WHERE thuc_hien.ten_dang_nhap = '$ten_dang_nhap' GROUP BY du_an.id_du_an");
+                                while($data = $search_data->fetch_assoc()){
+                                    echo "<option value='". $data['ten_du_an'] ."'>";
+                                }
+                            ?>
+                        </datalist>
                     </div>
-                    <div class="col-3 bg-header mt-3 pl-1"><input type="submit" value="Search" class="search-button"></div>
+                    <div class="col-3 bg-header mt-3 pl-1"><input type="button" value="Search" class="search-button" id="search"></div>
                 </div>
             </form>
             <div class="col-1 position-relative test">
@@ -331,11 +533,31 @@
                         <p class="col-10 pl-2 name-function" id="discuss">Trao đổi công việc</p>
                     </div>
                     <?php
+                        if($_SESSION['chuc_vu_id'] == 2){
+                            echo '<div class="row function-item">
+                                    <i class="fa-solid fa-briefcase col-2 logo-function"></i>
+                                    <p class="col-10 pl-2 name-function" id="discuss">Thêm công việc</p>
+                                </div>';
+                        }
                         if($_SESSION['chuc_vu_id'] == 3){
                             echo '<div class="row function-item">
                                      <i class="fa-solid fa-briefcase col-2 logo-function"></i>
-                                     <a href="add_project.php" class="col-10 pl-2 name-function add_project">Thêm dự án</a>
+                                     <p class="col-10 pl-2 name-function" id="add_project">Thêm dự án</p>
                                  </div>';
+                            echo '<div class="row function-item">
+                                <i class="fa-solid fa-trash col-2 logo-function"></i>
+                                <p class="col-10 pl-2 name-function" id="remove_project">Sửa và xóa dự án</p>
+                            </div>';
+                        }
+                        else{
+                            echo '<div class="row function-item hid">
+                                     <i class="fa-solid fa-briefcase col-2 logo-function"></i>
+                                     <p class="col-10 pl-2 name-function" id="add_project">Thêm dự án</p>
+                                 </div>';
+                            echo '<div class="row function-item hid">
+                                <i class="fa-solid fa-trash col-2 logo-function"></i>
+                                <p class="col-10 pl-2 name-function" id="remove_project">Sửa và xóa dự án</p>
+                            </div>';
                         }
                     ?>
                 </div>
@@ -356,7 +578,10 @@
                     <div class="project-list">
                         <?php
                             $moment = date('Y-m-d');
-                            $select_du_an = $connect->query("SELECT *, HOUR(du_an.ngay_khoi_tao) AS hour,MINUTE(du_an.ngay_khoi_tao) AS minute FROM `du_an`");
+                            $select_du_an = $connect->query("SELECT *, HOUR(du_an.ngay_khoi_tao) AS hour,MINUTE(du_an.ngay_khoi_tao) AS minute FROM `thuc_hien`
+                                                            INNER JOIN cong_viec ON thuc_hien.id_cong_viec = cong_viec.id_cong_viec
+                                                            INNER JOIN du_an ON cong_viec.id_du_an = du_an.id_du_an
+                                                            WHERE thuc_hien.ten_dang_nhap = '$ten_dang_nhap' GROUP BY du_an.id_du_an");
                             while($du_an = $select_du_an->fetch_assoc()){
                                 echo "
                                 <div class='project-info' id=";
@@ -388,24 +613,109 @@
                     <!-- chỗ để dự án hiển thị -->
                 </div>
 
-                <div>
-                    <!-- đây là phần để thêm các nội dung mới -->
+                <div class="div_add_project" id='div_add_project'>
+                    <form class="align-items-center" id='form_add_project'>
+                        <p>Tên dự án:</p>
+                        <input type="text" placeholder="Nhập tên dự án muốn thêm" id="ten_du_an_them"><br>
+                        <span id="tb_ten_du_an"></span>
+                        <p>Ngày bắt đầu:</p>
+                        <input type="date" id="start_day"><br>
+                        <p>Ngày kết thúc:</p>
+                        <input type="date" id="end_day"><br>
+                        <span id="tb_end_day"></span>
+                        <input type="submit" value="Thêm dự án" id="button_add_project" name="add_project">
+                    </form>
+                </div>
+
+                <div class='update_and_remove'>
+                    <h1>THÔNG TIN CÁC DỰ ÁN</h1>
+                    <table border="1px">
+                        
+                        <tr style='background-color: blue; color:white'>
+                            <th>Tên dự án</th>
+                            <th>ngày bắt đầu</th>
+                            <th>ngày kết thúc</th>
+                        </tr>
+                        <?php
+                            $sql = 'SELECT * FROM `du_an`';
+                            $result = $connect->query($sql);
+
+                            if($result->num_rows > 0){
+                                $col = 0;
+                                while($row = $result->fetch_assoc()){
+                                    $col++;
+                                    echo '<tr class=';
+                                    if ($col%2 == 0){
+                                        echo 'bg-lb project_information';
+                                    }
+                                    else{
+                                        echo 'bg-yellow project_information';
+                                    }
+                                    echo ' id="pi">';
+                                    echo '<td style="display: none" id="id_du_an_delete">'. $row['id_du_an'] .'</td>';
+                                    echo '<td class="td_name"><a id="ten_du_an_info" href="update_project.php?id_du_an='. $row['id_du_an'] .'">'. $row['ten_du_an'] .'</a></td>';
+                                    echo '<td class="days"><a id="ngay_bat_dau_info" href="update_project.php?id_du_an='. $row['id_du_an'] .'">'. $row['ngay_bat_dau'] .'</a></td>';
+                                    echo '<td class="days"><a id="ngay_ket_thuc_info" href="update_project.php?id_du_an='. $row['id_du_an'] .'">'. $row['ngay_ket_thuc'] .'</a></td>';
+                                    echo '<td class="end_td"><button class="button_remove">xóa</button></td>';
+                                    echo '</tr>';
+                                }
+                            }
+                        ?>
+                    </table>
+                </div>
+                <div class='confirm_delete text-center' id='confirm_delete'>
+                    <div>
+                        <h2>XÁC NHẬN HÀNH ĐỘNG</h2>
+                        <p>Bạn có chắc chắn muốn xóa dự án này không?</p>
+                        <button class='confirm_button' id="confirm_button" type="submit">Xác nhận</button>
+                        <button class='cancel_button' id="cancel_button" type="submit">Hủy</button>
+                    </div>
                 </div>
 
 
+
+
+
+
+
                 <!-- phần của hải -->
+                <!-- phần thành viên-->
+
+                <div class="cac_thanh_vien " id="cac_thanh_vien">
+                    <h4 class="tieu_de">Tên các thành viên trong công ty</h4>
+                    <?php
+                        $select_thanh_vien = $connect->query("SELECT * FROM `nhan_vien`");
+                        if($select_thanh_vien->num_rows>0){
+                            while($row = $select_thanh_vien->fetch_assoc()){
+                                echo "
+                                    <img src='../image/upload/".$row['anh_dai_dien']."' class='anh' width='100px'>
+                                    <div class='ten'>
+                                        <b id='ten'>".$row['ten']."</b>
+                                    </div>";
+                            }
+                        }
+                        
+                    ?>
+                </div>
+                <div class="thong_tin_thanh_vien" id='thong_tin'>
+                        <!--thông tin chi tiết nhân viên-->
+                </div>
+
+                <!-- phần trao đổi công việc-->
+
+
                 <div class="cac_tin_nhan bg-projects" id='cac_tin_nhan'>
                     <?php
-                        $nguoi_thuc_hien = $_SESSION['ten_dang_nhap'];
-                        $select_thuc_hien = $connect->query("SELECT * FROM `thuc_hien` where nguoi_thuc_hien = '$nguoi_thuc_hien'");
-                        if($select_thuc_hien->num_rows > 0){
-                            while($row = $select_thuc_hien->fetch_assoc()){
+                        $nguoi_gui = $_SESSION['ten_dang_nhap'];
+                        $select_nguoi_gui = $connect->query("SELECT DISTINCT id_du_an FROM `tin_nhan` where nguoi_gui = '$nguoi_gui'");
+                        if($select_nguoi_gui->num_rows > 0){
+                            while($row = $select_nguoi_gui->fetch_assoc()){
                                 $id_du_an = $row['id_du_an'];
                                 $du_an = ($connect->query("SELECT * FROM `du_an` WHERE id_du_an = '$id_du_an'"))->fetch_assoc();
                                 echo "
                                 <div class='thong-tin-du-an'>
                                     <div class='tin-nhan' id='tin_nhan'>
-                                        <p style='display: none' id='nguoi_thuc_hien'>". $nguoi_thuc_hien ."</p>
+                                        <p style='display: none' id='nguoi_gui'>". $nguoi_gui ."</p>
                                         <p style='display: none' id='id_da'>". $du_an['id_du_an'] ."</p>
                                         <h4>". $du_an['ten_du_an'] ."</h4>
                                     </div>
@@ -417,8 +727,10 @@
                 </div>
                 <div class="chi-tiet-tin-nhan" id='chi_tiet_tin_nhan'>
                     <!-- đây là phần hiện chi tiết tin nhắn -->
+                </div>
+
                 <div>
-                    <!-- đây là phần để thêm các nội dung mới -->
+                    <!-- đây là phần để thêm nội dung mới -->
                 </div>
             </div>
         </div>
@@ -429,8 +741,8 @@
 
 
     <script>
-        //hiện info
     document.addEventListener('click', function(e){
+        //hiện info
         const info = document.querySelector('#info');
         const showInfo = document.querySelector('#showInfo');
 
@@ -440,9 +752,8 @@
         if (e.target === showInfo) {
             info.style.display = 'block';
         }
-    });
-    //hiện ảnh
-    document.addEventListener('click', function(e){
+
+        //hiện ảnh
         const anh_dai_dien = document.querySelector('#anh_dai_dien');
         const showImage = document.querySelector('#showImage');
 
@@ -452,35 +763,80 @@
         if (e.target === showImage) {
             anh_dai_dien.style.display = 'block';
         }
-    });
-    document.addEventListener('click', function(e){
+
+        //đổi màu function + hiển thị
         const projects = document.querySelector('#projects');
         const members = document.querySelector('#members');
         const discuss = document.querySelector('#discuss');
-        const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
         const project_content = document.querySelector('#project_content');
+        const add_project = document.querySelector('#add_project');
+        const div_add_project = document.querySelector('#div_add_project');
+        const update_and_remove = document.querySelector('.update_and_remove');
+        const remove_project = document.querySelector('#remove_project');
+        const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
+        const cac_thanh_vien = document.querySelector('#cac_thanh_vien');
         if (e.target === projects){
             projects.style.backgroundColor = '#4c9beb';
             project_content.style.display = 'block';
             members.style.backgroundColor = 'white';
             discuss.style.backgroundColor = 'white';
+            add_project.style.backgroundColor = 'white';
+            div_add_project.style.display = 'none';
+            remove_project.style.backgroundColor = 'white';
+            update_and_remove.style.display = 'none';
             cac_tin_nhan.style.display = 'none';
+            cac_thanh_vien.style.display = 'none';
         }
         else if (e.target === members){
             projects.style.backgroundColor = 'white';
             project_content.style.display = 'none';
             members.style.backgroundColor = '#4c9beb';
             discuss.style.backgroundColor = 'white';
+            add_project.style.backgroundColor = 'white';
+            div_add_project.style.display = 'none';
+            remove_project.style.backgroundColor = 'white';
+            update_and_remove.style.display = 'none';
             cac_tin_nhan.style.display = 'none';
+            cac_thanh_vien.style.display = 'block';
         }
         else if(e.target === discuss){
             projects.style.backgroundColor = 'white';
             project_content.style.display = 'none';
             members.style.backgroundColor = 'white';
             discuss.style.backgroundColor = '#4c9beb';
+            add_project.style.backgroundColor = 'white';
+            div_add_project.style.display = 'none';
+            remove_project.style.backgroundColor = 'white';
+            update_and_remove.style.display = 'none';
+            cac_thanh_vien.style.display = 'none';
+            cac_tin_nhan.style.display = 'block';
         }
-    })
-    document.addEventListener('click', function(e){
+        else if(e.target === add_project){
+            projects.style.backgroundColor = 'white';
+            project_content.style.display = 'none';
+            members.style.backgroundColor = 'white';
+            discuss.style.backgroundColor = 'white';
+            add_project.style.backgroundColor = '#4c9beb';
+            div_add_project.style.display = 'block';
+            remove_project.style.backgroundColor = 'white';
+            update_and_remove.style.display = 'none';
+            cac_tin_nhan.style.display = 'none';
+            cac_thanh_vien.style.display = 'none';
+        }
+        else if(e.target === remove_project){
+            projects.style.backgroundColor = 'white';
+            project_content.style.display = 'none';
+            members.style.backgroundColor = 'white';
+            discuss.style.backgroundColor = 'white';
+            add_project.style.backgroundColor = 'white';
+            remove_project.style.backgroundColor = '#4c9beb';
+            div_add_project.style.display = 'none';
+            update_and_remove.style.display = 'block';
+            cac_tin_nhan.style.display = 'none';
+            cac_thanh_vien.style.display = 'none';
+        }
+
+        //hiển thị qua lại các trạng thái dự án
         const is_comming = document.querySelector('#is_comming');
         const to_do = document.querySelector('#to_do');
         const completed = document.querySelector('#completed');
@@ -528,30 +884,117 @@
                 e.style.display = 'block';
             });
         }
-    })
-    document.addEventListener('click', function(e) {
+
+        //hiển thị chi tiết dự án
         const project_names = document.querySelectorAll('#project_name');
         const project_detail = document.querySelector('#project_detail');
-        const project_content = document.querySelector('#project_content');
-        const projects = document.querySelector('#projects');
-        const members = document.querySelector('#members');
-        const my_projects = document.querySelector('#my_projects');
-        const discuss = document.querySelector('#discuss');
-        function lay_chi_tiet_du_an(id_du_an) {
-            fetch(`lay_chi_tiet_du_an.php?id_du_an=${ id_du_an }`).then(response=>response.text()).
-            then(response=>project_detail.innerHTML = response)
-        }
         
+
         project_names.forEach(function(project_name) {
             if (project_name.contains(e.target)) {
                 const id_du_an = project_name.querySelector('#id_du_an').textContent;
                 project_content.style.display = 'none';
-                lay_chi_tiet_du_an(id_du_an);
+                fetch(`lay_chi_tiet_du_an.php?id_du_an=${ id_du_an }`)
+                    .then(response=>response.text())
+                    .then(response=>project_detail.innerHTML = response)
             }
         });
-        if ((e.target == projects)||(e.target == members)||(e.target == discuss)){
+        if ((e.target == projects)||(e.target == members)||(e.target == discuss)||(e.target == add_project)||(e.target == remove_project)){
             project_detail.innerHTML = ''
         }
+
+        //search
+        const search = document.querySelector('#search');
+        const ten_du_an = document.querySelector('#ten_du_an').value;
+        if(e.target == search){
+            fetch(`lay_chi_tiet_du_an2.php?ten_du_an=${ ten_du_an }`)
+                .then(response=>response.text())
+                .then(response=>project_detail.innerHTML = response);
+            projects.style.backgroundColor = '#4c9beb';
+            project_content.style.display = 'none';
+            cac_tin_nhan.style.display = 'none';
+            chi_tiet_tin_nhan.style.display = 'none';
+            members.style.backgroundColor = 'white';
+            discuss.style.backgroundColor = 'white';
+            add_project.style.backgroundColor = 'white';
+            div_add_project.style.display = 'none';
+            remove_project.style.backgroundColor = 'white';
+            update_and_remove.style.display = 'none';
+        }
+    });
+
+
+    
+    document.addEventListener('submit', function(e){
+        //thêm dự án
+        const button_add_project = document.querySelector('#button_add_project');
+        if(e.target == button_add_project){
+            const ten_du_an_them = document.querySelector('#ten_du_an_them').value;
+            const start_day = document.querySelector('#start_day').value;
+            const end_day = document.querySelector('#end_day').value;
+            fetch(`add_project.php?ten_du_an=${ten_du_an_them}&start_day=${start_day}&end_day=${end_day}`)
+            .then(response => response.text())
+            .then(response => alert(response));
+        }
+    })
+
+    
+    //form thêm dự án
+    document.addEventListener("DOMContentLoaded", function(){
+        const start_day = document.querySelector('#start_day');
+        const end_day = document.querySelector('#end_day');
+        const tb_end_day = document.querySelector('#tb_end_day');
+        const ten_du_an_them = document.querySelector('#ten_du_an_them');
+        const tb_ten_du_an = document.querySelector('#tb_ten_du_an');
+        const button_add_project = document.querySelector('#button_add_project');
+        button_add_project.disabled = true
+
+        end_day.onchange = function(){
+            const start_date = new Date(start_day.value);
+            const end_date = new Date(end_day.value);
+
+            if (end_date < start_date){
+                tb_end_day.innerHTML = '*ngày kết thúc không thể sớm hơn ngày bắt đầu, vui lòng nhập lại!';
+            }
+            else{
+                tb_end_day.innerHTML = '';
+            }
+            if((ten_du_an_them.value.length > 1) && (end_date >= start_date)){
+                button_add_project.disabled = false
+            }
+        }
+
+        ten_du_an_them.onblur = function(){
+            if(ten_du_an_them.value.length < 1){
+                tb_ten_du_an.innerHTML = '*vui lòng nhập tên dự án';
+            }
+            else{
+                tb_ten_du_an.innerHTML = '';
+            }
+        }
+
+        //hiển thị xác nhận xóa
+        const button_remove = document.querySelectorAll('.button_remove');
+        const confirm_delete = document.querySelector('#confirm_delete');
+        let id_du_an_delete
+        button_remove.forEach(button => {
+            button.addEventListener('click', function() {
+                let row = this.closest('#pi');
+                id_du_an_delete = row.querySelector('#id_du_an_delete').textContent
+                confirm_delete.style.display = 'block';
+            });
+            //xác nhận xóa
+            confirm_delete.addEventListener('click', function(e) {
+                if (e.target.id === 'confirm_button') {
+                    fetch(`delete_project.php?id_du_an=${id_du_an_delete}`)
+                    confirm_delete.style.display = 'none';
+                    location.reload();
+
+                } else if (e.target.id === 'cancel_button') {
+                    confirm_delete.style.display = 'none';
+                }
+            });
+        });
     });
 
 
@@ -564,12 +1007,26 @@
     //hải
 
     document.addEventListener('click', function(e){
-        const discuss = document.querySelector('#discuss');
-        const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
-        if(e.target == discuss){
-            cac_tin_nhan.style.display='block'
+        const ten_nv = document.querySelectorAll('#ten');
+        const thong_tin = document.querySelector('#thong_tin');
+        const cac_thanh_vien = document.querySelector('#cac_thanh_vien');
+        function lay_thong_tin_nhan_vien(ten) {
+            fetch(`lay_thong_tin_nhan_vien.php?ten=${ ten }`).then(response=>response.text()).
+            then(response=>thong_tin.innerHTML = response)
         }
-    });
+        
+        ten_nv.forEach(function(ten) {
+            if (ten.contains(e.target)) {
+                const tenz = ten.textContent;
+                cac_thanh_vien.style.display = 'none';
+                lay_thong_tin_nhan_vien(tenz);
+            }
+        });
+        if ((e.target == projects)||(e.target == members)||(e.target == discuss)){
+            thong_tin.innerHTML = ''
+        }
+    })
+
     
 
     document.addEventListener('click', function(e){
@@ -578,23 +1035,21 @@
             fetch(`gui_di_tin_nhan.php?id_du_an=${id_du_an}&ten_dang_nhap=${ten_dang_nhap}&noi_dung=${noi_dung}`)
         }
         if(e.target == gui_tin_nhan){
-            const tin_nhan = document.querySelector('#tin_nhan_gui');
+            const tin_nhan = document.querySelector('#tin_nhan_gui').value;
             const noi_dung_tin_nhan = document.querySelector('#noi_dung_tin_nhan')
-            const noi_dung =  tin_nhan.value;
             const id_du_an = document.querySelector('#idda').value;
             const ten_dang_nhap = document.querySelector('#tdn').value;
-            if(tin_nhan.value.length != 0){
+            if(tin_nhan.length != 0){
                 const p = document.createElement('p')
-                p.innerHTML = tin_nhan.value;
+                p.innerHTML = tin_nhan;
                 p.className = 'ban-than';
                 noi_dung_tin_nhan.append(p);
                 gui_di_tin_nhan(id_du_an, ten_dang_nhap, noi_dung)
-                tin_nhan.value = '';
+                tin_nhan = '';
             }       
             e.preventDefault();
         }
     })
-
 
     document.addEventListener('click', function(e){
         const tin_nhans = document.querySelectorAll('#tin_nhan');
@@ -603,12 +1058,13 @@
             fetch(`lay_chi_tiet_tin_nhan.php?id_du_an=${ id_du_an }&ten_dang_nhap=${ ten_dang_nhap }`).then(response=>response.text()).
             then(response=>chi_tiet_tin_nhan.innerHTML = response)
         }
+
         
         tin_nhans.forEach(function(tin_nhan) {
             if (tin_nhan.contains(e.target)) {
                 const cac_tin_nhan = document.querySelector('#cac_tin_nhan');
                 const id_du_an = tin_nhan.querySelector('#id_da').textContent;
-                const ten_dang_nhap = tin_nhan.querySelector('#nguoi_thuc_hien').textContent;
+                const ten_dang_nhap = tin_nhan.querySelector('#nguoi_gui').textContent;
                 cac_tin_nhan.style.display = 'none';
                 lay_chi_tiet_tin_nhan(id_du_an, ten_dang_nhap);
             }
@@ -617,6 +1073,8 @@
             chi_tiet_tin_nhan.innerHTML = ''
         }
     })
+    
+
     </script>
 </body>
 </html>

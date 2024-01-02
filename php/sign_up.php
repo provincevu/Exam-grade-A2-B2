@@ -46,6 +46,8 @@
             tb_email = document.querySelector('#tb_email')
             tra_loi = document.querySelector('#tra_loi')
             tb_tra_loi = document.querySelector('#tb_tra_loi')
+            ngay_sinh = document.querySelector('#ngay_sinh')
+            tb_ngay_sinh = document.querySelector('#tb_ngay_sinh')
             form.onkeyup = function(){
                 if((ho_ten.value.length >= 8) & (ten_dang_nhap.value.length >= 8) & (password.value === nhap_lai_password.value)
                 & (email.value.includes('@') !== false) & (cccd.value.length >= 8) & (dia_chi.value.length >= 5)
@@ -117,6 +119,14 @@
                     tb_email.innerHTML = ''
                 }
             }
+            ngay_sinh.onchange = function(){
+                if (new Date(ngay_sinh.value) > new Date()){
+                    tb_ngay_sinh.innerHTML = '*ngày sinh không thể lớn hơn ngày hiện tại<br>'
+                }
+                else{
+                    tb_ngay_sinh.innerHTML = ''
+                }
+            }
         })
     </script>
 </head>
@@ -152,8 +162,14 @@
             <div class="form-group">
                 Giới tính(*):
                 <select name="gioi_tinh" id="gioi_tinh">
-                    <option value="1">Nam</option>
-                    <option value="2">Nữ</option>
+                    <?php
+                        require 'connect.php';
+                        mysqli_set_charset($connect, 'UTF8');
+                        $select_gioi_tinh = $connect->query("SELECT * FROM `gioi_tinh`");
+                        while($gioi_tinh_data = $select_gioi_tinh->fetch_assoc()){
+                            echo "<option value=". $gioi_tinh_data['gioi_tinh_id'] .">". $gioi_tinh_data['ten_gioi_tinh'] ."</option>";
+                        }
+                    ?>
                 </select>
             </div>
             <div class="form-group">
@@ -168,7 +184,8 @@
             </div>
             <div class="form-group">
                 Ngày sinh(*):
-                <input type="date" class="form-control" name="ngay_sinh">
+                <input type="date" class="form-control" name="ngay_sinh" id="ngay_sinh">
+                <span class="notice" id="tb_ngay_sinh"></span>
             </div>
             <div class="form-group">
                 Địa chỉ(*):
@@ -181,9 +198,6 @@
     </div>
     <?php
         if(isset($_GET['sign_up'])){
-            require 'connect.php';
-            mysqli_set_charset($connect, 'UTF8');
-
             $cccd = $_GET['cccd'];
             $ten = $_GET['ten'];
             $ten_dang_nhap = $_GET['ten_dang_nhap'];
