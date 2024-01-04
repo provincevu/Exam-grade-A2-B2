@@ -77,7 +77,7 @@
                 Ảnh đại diện:<br>
                 <span class="notice">*chỉ chấp nhận ảnh có đuôi png, jpg và jpeg và</span>
                 <span class="notice">ảnh sẽ có hiệu lực sau khi đăng nhập lại</span>
-                <input type="file" name="anh_dai_dien" id="anh_dai_dien" value="<?php echo $_SESSION['anh_dai_dien'];?>"><br>
+                <input type="file" name="anh_dai_dien" id="anh_dai_dien"><br>
             </div>
             <div class="form-group">
                 Địa chỉ:
